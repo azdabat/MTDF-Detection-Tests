@@ -1,0 +1,10 @@
+name: 'NTDS / hive credential dumping - volume shadow copy (OTRF)'
+rule: 'NTDS_Domain_Credential_Dumping_V2.kql'
+fixture: fixtures_volume_shadow_copy
+technique: 'T1003.003, T1003.002'
+source: 'OTRF cmd_dumping_ntds_dit_file_volume_shadow_copy'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_dumping_ntds_dit_file_volume_shadow_copy.zip
+catches: 'ntdsutil IFM, shadow-copy or hive-save access to credential stores'
+maturity: experimental
+expect:
+  must_fire: true

@@ -1,0 +1,17 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: NTDS / Registry Hive Credential Dumping (Composite L2)
+author: Ala Dabat
+techniques:
+- T1003.003
+- T1003.002
+minimum_truth: 'A credential store is copied: ntdsutil IFM, a volume shadow copy or a registry hive save - or ntds.dit
+  / SAM / SYSTEM / SECURITY is written to disk.'
+reinforcement: Staging path, follow-on transfer, multiple dump techniques on one host.
+data_sources:
+- DeviceProcessEvents
+- DeviceFileEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: NTDS_Domain_Credential_Dumping_V2

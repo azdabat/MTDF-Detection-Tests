@@ -1,0 +1,17 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: Registry Persistence - LSA / Security Support Providers (Composite L3)
+author: Ala Dabat
+techniques:
+- T1547.009
+- T1112
+minimum_truth: A RegistryValueSet under Control\Lsa or Control\SecurityProviders touching security / authentication
+  / notification packages, SSP DLLs or WDigest UseLogonCredential.
+reinforcement: DLL referenced from a user-writable path; untrusted or rare writer.
+data_sources:
+- DeviceRegistryEvents
+- DeviceFileEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 14d
+source_rule: Registry_Persistence_LSA_SecurityProviders

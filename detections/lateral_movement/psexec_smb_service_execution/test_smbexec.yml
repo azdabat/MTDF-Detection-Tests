@@ -1,0 +1,10 @@
+name: 'PsExec-style SMB service execution - smbexec (Empire)'
+rule: 'PsExec_SMB_Service_Execution_REVISED.kql'
+fixture: fixtures_smbexec
+technique: 'T1021.002, T1569.002'
+source: 'OTRF empire_smbexec_dcerpc_smb_svcctl'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_smbexec_dcerpc_smb_svcctl.zip
+catches: 'Remote service created over SMB that launches a command interpreter on the victim'
+maturity: experimental
+expect:
+  must_fire: true

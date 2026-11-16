@@ -1,0 +1,19 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: SMB + Service Execution - PsExec / Impacket Style (Composite L2.5)
+author: Ala Dabat
+techniques:
+- T1021.002
+- T1569.002
+- T1543.003
+minimum_truth: services.exe starts an uncommon child process within the correlation window of an inbound SMB/RPC
+  (445/135) connection to the same host.
+reinforcement: Executable or script staged on the host in the same window; multiple inbound sources.
+data_sources:
+- DeviceProcessEvents
+- DeviceNetworkEvents
+- DeviceFileEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 3d
+source_rule: PsExec_SMB_Service_Execution_REVISED

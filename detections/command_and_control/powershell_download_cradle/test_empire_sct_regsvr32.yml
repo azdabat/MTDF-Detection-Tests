@@ -1,0 +1,11 @@
+name: 'PowerShell download cradle - empire sct regsvr32 (Empire)'
+rule: 'PowerShell_Download_Ingress_Cradle_V2.kql'
+fixture: fixtures_empire_sct_regsvr32
+technique: 'T1105, T1059.001'
+source: 'OTRF empire_launcher_sct_regsvr32'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/empire_launcher_sct_regsvr32.zip
+catches: 'Empire stager: hidden, encoded PowerShell cradle launched from a script host'
+maturity: experimental
+known_issue: "coverage boundary - same encoded stager launched via regsvr32/SCT; download intent hidden in -enc"
+expect:
+  must_fire: true

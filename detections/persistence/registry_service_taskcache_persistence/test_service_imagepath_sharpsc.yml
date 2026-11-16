@@ -1,0 +1,17 @@
+name: Service persistence - ImagePath pointing at a Covenant implant (SharpSC)
+rule: Registry_Persistence_Background_Service_TaskCache.kql
+fixture: fixtures_service_sharpsc
+maturity: experimental
+technique: T1543.003
+source: OTRF covenant_sharpsc_create_dcerpc_smb_svcctl
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/covenant_sharpsc_create_dcerpc_smb_svcctl.zip
+catches: 'Remote service Cyb3rWard0g created over SMB with ImagePath C:\Windows\System32\GruntHTTP2.exe'
+notes: >
+  Covenant's SharpSC creates a service remotely without starting it, so no process
+  ever spawns - only the ImagePath write proves it. The implant sits in System32,
+  which tests that the safe-path suppression does not swallow a non-vendor binary.
+expect:
+  must_fire: true
+  contains:
+    - PersistenceClass: ["Service(ImagePath)"]
+      RegistryKey: ['HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Cyb3rWard0g']

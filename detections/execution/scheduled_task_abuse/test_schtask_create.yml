@@ -1,0 +1,10 @@
+name: 'Scheduled task abuse - schtask create (OTRF)'
+rule: 'Scheduled_Task_Abuse_Rundll_Aware_V2.kql'
+fixture: fixtures_schtask_create
+technique: 'T1053.005'
+source: 'OTRF schtask_create'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/schtask_create.zip
+catches: 'schtasks /create with a script-host or encoded PowerShell action'
+maturity: experimental
+expect:
+  must_fire: true

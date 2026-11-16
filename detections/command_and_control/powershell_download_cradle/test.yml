@@ -1,0 +1,11 @@
+name: 'PowerShell download cradle - empire launcher vbs (Empire)'
+rule: 'PowerShell_Download_Ingress_Cradle_V2.kql'
+fixture: fixtures
+technique: 'T1105, T1059.001'
+source: 'OTRF empire_launcher_vbs'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip
+catches: 'Empire stager: hidden, encoded PowerShell cradle launched from a script host'
+maturity: experimental
+known_issue: "coverage boundary - Empire's stager hides the download inside -enc base64 and its lab C2 is 10.10.10.5 (RFC1918), so the minimum truth (cleartext download intent + external URL) is never visible; needs -enc decoding"
+expect:
+  must_fire: true

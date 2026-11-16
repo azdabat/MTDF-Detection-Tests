@@ -1,0 +1,10 @@
+name: 'NTDS / hive credential dumping - empire reg save sam (Empire)'
+rule: 'NTDS_Domain_Credential_Dumping_V2.kql'
+fixture: fixtures_empire_reg_save_sam
+technique: 'T1003.003, T1003.002'
+source: 'OTRF empire_shell_reg_dump_sam'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_shell_reg_dump_sam.zip
+catches: 'ntdsutil IFM, shadow-copy or hive-save access to credential stores'
+maturity: experimental
+expect:
+  must_fire: true

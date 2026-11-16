@@ -1,0 +1,13 @@
+name: Service persistence - ImagePath launching an encoded Empire stager (PsExec)
+rule: Registry_Persistence_Background_Service_TaskCache.kql
+fixture: fixtures_service_empire_psexec
+maturity: experimental
+technique: T1543.003, T1569.002
+source: OTRF empire_psexec_dcerpc_tcp_svcctl
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip
+catches: 'Service Updater ImagePath = %COMSPEC% /C start /b powershell -noP -sta -w 1 -enc ...'
+expect:
+  must_fire: true
+  contains:
+    - PersistenceClass: ["Service(ImagePath)"]
+      RegistryKey: ['HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Updater']

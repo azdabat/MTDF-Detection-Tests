@@ -1,0 +1,11 @@
+name: 'NTDS / hive credential dumping - empire ninjacopy (Empire)'
+rule: 'NTDS_Domain_Credential_Dumping_V2.kql'
+fixture: fixtures_empire_ninjacopy
+technique: 'T1003.003, T1003.002'
+source: 'OTRF empire_ninjacopy_dumping_ntds_dit_file'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_ninjacopy_dumping_ntds_dit_file.zip
+catches: 'ntdsutil IFM, shadow-copy or hive-save access to credential stores'
+maturity: experimental
+known_issue: "coverage boundary - Invoke-NinjaCopy reads the raw volume from in-memory PowerShell: no ntdsutil/vssadmin process and no ntds.dit file write to anchor on"
+expect:
+  must_fire: true

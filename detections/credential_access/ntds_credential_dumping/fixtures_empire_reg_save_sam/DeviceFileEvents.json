@@ -1,0 +1,53 @@
+[
+ {
+  "Timestamp": "2020-09-22T08:28:40.325000Z",
+  "DeviceName": "WORKSTATION5.theshire.local",
+  "ActionType": "FileCreated",
+  "FileName": "sam",
+  "FolderPath": "C:\\Windows\\System32\\sam",
+  "InitiatingProcessFileName": "reg.exe",
+  "InitiatingProcessFolderPath": "C:\\windows\\system32\\reg.exe",
+  "DeviceId": "be279f07c29d5bb7369b2c2c63828186a94f50b6",
+  "ReportId": 3400696,
+  "InitiatingProcessSHA256": "4ED2A27860FA154415F65452FF1F94BD6AF762982E2F3470030C504DC3C8A354",
+  "InitiatingProcessSHA1": "EB3B03616EEE42F16D0703F64DE23E7E34FE8524",
+  "InitiatingProcessMD5": "601BDDF7691C5AF626A5719F1D7E35F1",
+  "InitiatingProcessVersionInfoCompanyName": "Microsoft Corporation",
+  "InitiatingProcessVersionInfoProductName": "Microsoft\u00ae Windows\u00ae Operating System",
+  "InitiatingProcessVersionInfoOriginalFileName": "reg.exe",
+  "InitiatingProcessVersionInfoFileDescription": "Registry Console Tool"
+ },
+ {
+  "Timestamp": "2020-09-22T08:28:40.356000Z",
+  "DeviceName": "WORKSTATION5.theshire.local",
+  "ActionType": "FileCreated",
+  "FileName": "REG.EXE-E7E8BD26.pf",
+  "FolderPath": "C:\\Windows\\Prefetch\\REG.EXE-E7E8BD26.pf",
+  "InitiatingProcessFileName": "svchost.exe",
+  "InitiatingProcessFolderPath": "C:\\windows\\system32\\svchost.exe",
+  "DeviceId": "be279f07c29d5bb7369b2c2c63828186a94f50b6",
+  "ReportId": 3400699
+ },
+ {
+  "Timestamp": "2020-09-22T08:29:02.491000Z",
+  "DeviceName": "WORKSTATION6.theshire.local",
+  "ActionType": "FileCreated",
+  "FileName": "lastalive1.dat",
+  "FolderPath": "C:\\Windows\\ServiceState\\EventLog\\Data\\lastalive1.dat",
+  "InitiatingProcessFileName": "svchost.exe",
+  "InitiatingProcessFolderPath": "C:\\windows\\System32\\svchost.exe",
+  "DeviceId": "b7f153628f11047e079fcca30634c53e83959344",
+  "ReportId": 3779160
+ },
+ {
+  "Timestamp": "2020-09-22T08:29:17.942000Z",
+  "DeviceName": "WORKSTATION5.theshire.local",
+  "ActionType": "FileCreated",
+  "FileName": "lastalive1.dat",
+  "FolderPath": "C:\\Windows\\ServiceState\\EventLog\\Data\\lastalive1.dat",
+  "InitiatingProcessFileName": "svchost.exe",
+  "InitiatingProcessFolderPath": "C:\\windows\\System32\\svchost.exe",
+  "DeviceId": "be279f07c29d5bb7369b2c2c63828186a94f50b6",
+  "ReportId": 3400776
+ }
+]

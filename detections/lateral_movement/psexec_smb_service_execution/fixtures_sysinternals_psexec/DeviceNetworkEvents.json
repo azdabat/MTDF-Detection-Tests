@@ -1,0 +1,36 @@
+[
+ {
+  "Timestamp": "2020-10-19T07:30:46.319000Z",
+  "DeviceName": "WORKSTATION5",
+  "ActionType": "InboundConnectionAccepted",
+  "Protocol": "tcp",
+  "LocalIP": "fe80:0:0:0:90e:17af:263c:5209",
+  "LocalPort": 445,
+  "RemoteIP": "fe80:0:0:0:90e:17af:263c:5209",
+  "RemotePort": 58391,
+  "RemoteUrl": "-",
+  "InitiatingProcessFileName": "System",
+  "InitiatingProcessFolderPath": "System",
+  "InitiatingProcessId": 4,
+  "InitiatingProcessAccountDomain": "NT AUTHORITY",
+  "InitiatingProcessAccountName": "SYSTEM",
+  "DeviceId": "137f18dfa916cee5a45605076c9a60b45ede2b0c"
+ },
+ {
+  "Timestamp": "2020-10-19T07:30:46.319000Z",
+  "DeviceName": "WORKSTATION5",
+  "ActionType": "ConnectionSuccess",
+  "Protocol": "tcp",
+  "LocalIP": "fe80:0:0:0:90e:17af:263c:5209",
+  "LocalPort": 58391,
+  "RemoteIP": "fe80:0:0:0:90e:17af:263c:5209",
+  "RemotePort": 445,
+  "RemoteUrl": "-",
+  "InitiatingProcessFileName": "System",
+  "InitiatingProcessFolderPath": "System",
+  "InitiatingProcessId": 4,
+  "InitiatingProcessAccountDomain": "NT AUTHORITY",
+  "InitiatingProcessAccountName": "SYSTEM",
+  "DeviceId": "137f18dfa916cee5a45605076c9a60b45ede2b0c"
+ }
+]

@@ -1,0 +1,11 @@
+name: 'PowerShell intent-first composite - empire launcher vbs (Empire)'
+rule: 'Powershell_Intent_First_Composite.kql'
+fixture: fixtures
+technique: 'T1059.001'
+source: 'OTRF empire_launcher_vbs'
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip
+catches: 'Hidden, non-interactive, encoded PowerShell launched by a script host or UAC bypass'
+maturity: experimental
+known_issue: "coverage boundary - encoded Empire stager: download intent hidden in -enc base64, lab C2 on RFC1918"
+expect:
+  must_fire: true

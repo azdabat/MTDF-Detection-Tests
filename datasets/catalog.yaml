@@ -1,0 +1,120 @@
+# OTRF Security-Datasets — Empire runs, by ATT&CK tactic.
+# Source: https://github.com/OTRF/Security-Datasets  (datasets/atomic/windows/<tactic>/host/<name>.<ext>)
+# Each is real host telemetry (Sysmon + Windows Security) from an Empire operation.
+# fetch_datasets.py builds the URL from tactic + name + ext.
+
+datasets:
+  # ---- Persistence (T1053 / T1543 / T1547 / T1546) ----
+  empire_schtasks_creation_execution_elevated_user:
+    tactic: persistence
+    technique: T1053.005
+    ext: zip
+    note: Scheduled task as SYSTEM -> TaskCache Tree+Tasks writes. Fires TaskCache anchor.
+  empire_schtasks_creation_standard_user:
+    tactic: persistence
+    technique: T1053.005
+    ext: zip
+  empire_persistence_registry_modification_run_keys_elevated_user:
+    tactic: persistence
+    technique: T1547.001
+    ext: zip
+    note: Run key persistence (CurrentVersion\Run). Different surface from this rule.
+  empire_persistence_registry_modification_run_keys_standard_user:
+    tactic: persistence
+    technique: T1547.001
+    ext: zip
+  empire_wmi_local_event_subscriptions_elevated_user:
+    tactic: persistence
+    technique: T1546.003
+    ext: zip
+    note: WMI event subscription persistence -> Sysmon EID 19/20/21 (DeviceEvents, approx).
+
+  # ---- Credential Access (T1003 / T1558) ----
+  empire_mimikatz_logonpasswords:
+    tactic: credential_access
+    technique: T1003.001
+    ext: zip
+    note: LSASS logonpasswords. Rich EID 10 process-access + image loads.
+  empire_mimikatz_lsadump_patch:
+    tactic: credential_access
+    technique: T1003.004
+    ext: zip
+  empire_mimikatz_sam_access:
+    tactic: credential_access
+    technique: T1003.002
+    ext: zip
+  empire_powerdump_sam_access:
+    tactic: credential_access
+    technique: T1003.002
+    ext: zip
+  empire_shell_reg_dump_sam:
+    tactic: credential_access
+    technique: T1003.002
+    ext: zip
+    note: reg save of SAM/SYSTEM hives -> file + process events.
+  empire_dcsync_dcerpc_drsuapi_DsGetNCChanges:
+    tactic: credential_access
+    technique: T1003.006
+    ext: zip
+    note: DCSync (needs DC telemetry).
+  empire_shell_rubeus_asktgt_ptt:
+    tactic: credential_access
+    technique: T1558.003
+    ext: zip
+
+  # ---- Defense Evasion (T1562 / T1222) ----
+  empire_wdigest_downgrade:
+    tactic: defense_evasion
+    technique: T1112
+    ext: tar.gz
+    note: WDigest UseLogonCredential=1 registry downgrade. Registry value-set surface.
+  empire_powerview_ldap_ntsecuritydescriptor:
+    tactic: defense_evasion
+    technique: T1222.001
+    ext: zip
+
+  # ---- Lateral Movement (T1021 / T1569) ----
+  empire_psexec_dcerpc_tcp_svcctl:
+    tactic: lateral_movement
+    technique: T1569.002
+    ext: zip
+    note: PsExec service creation -> Services registry writes (ImagePath surface).
+  empire_smbexec_dcerpc_smb_svcctl:
+    tactic: lateral_movement
+    technique: T1569.002
+    ext: zip
+  empire_shell_dcerpc_smb_service_dll_hijack:
+    tactic: lateral_movement
+    technique: T1574.001
+    ext: zip
+  empire_psremoting_stager:
+    tactic: lateral_movement
+    technique: T1021.006
+    ext: zip
+  empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod:
+    tactic: lateral_movement
+    technique: T1047
+    ext: zip
+  empire_dcom_shellwindows_stager:
+    tactic: lateral_movement
+    technique: T1021.003
+    ext: zip
+  empire_wmic_add_user_backdoor:
+    tactic: lateral_movement
+    technique: T1136.001
+    ext: zip
+
+  # ---- Execution / Privilege Escalation ----
+  empire_launcher_vbs:
+    tactic: execution
+    technique: T1059.005
+    ext: zip
+  empire_uac_shellapi_fodhelper:
+    tactic: privilege_escalation
+    technique: T1548.002
+    ext: zip
+    note: fodhelper UAC bypass -> HKCU registry + process lineage.
+  empire_invoke_runas:
+    tactic: privilege_escalation
+    technique: T1134
+    ext: tar

@@ -1,0 +1,16 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: PowerShell Download Cradle / Stager - Intent-Gated (Composite L2)
+author: Ala Dabat
+techniques:
+- T1059.001
+- T1105
+minimum_truth: PowerShell performs web download intent (iwr / irm / WebClient / DownloadString) with an external
+  URL.
+reinforcement: Obfuscation / execution (IEX, -enc, base64), suspicious parent, writable-path targeting.
+data_sources:
+- DeviceProcessEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: Powershell_Intent_First_Composite

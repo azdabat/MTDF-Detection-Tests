@@ -1,0 +1,14 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: Ingress Tool Transfer - LOLBin Pack (Composite L2)
+author: Ala Dabat
+techniques:
+- T1105
+minimum_truth: Native transfer utility executed with external transfer intent (URL / external IP / transfer flags).
+reinforcement: Suspicious parent OR writable-path targeting.
+data_sources:
+- DeviceProcessEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: LOLBINS_Ingress_Pack

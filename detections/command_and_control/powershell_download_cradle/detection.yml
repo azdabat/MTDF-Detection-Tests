@@ -1,0 +1,16 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: Ingress Tool Transfer - PowerShell Download Cradle (Composite L2.5)
+author: Ala Dabat
+techniques:
+- T1105
+- T1059.001
+minimum_truth: PowerShell runs with download intent and an external URL in its command line.
+reinforcement: Execution intent (IEX), long -enc payload, suspicious parent, writable-path or executable file drop.
+data_sources:
+- DeviceProcessEvents
+- DeviceFileEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: PowerShell_Download_Ingress_Cradle_V2

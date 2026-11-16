@@ -1,0 +1,17 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: WMI Fileless Consumer Execution - scrcons Substrate (Composite L2)
+author: Ala Dabat
+techniques:
+- T1546.003
+- T1047
+minimum_truth: scrcons.exe - the host process of WMI ActiveScriptEventConsumers - loads a script engine (vbscript.dll,
+  jscript.dll, scrobj.dll).
+reinforcement: Network activity from scrcons.exe; rarity of scrcons script execution on the device.
+data_sources:
+- DeviceImageLoadEvents
+- DeviceNetworkEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: WMI_Fileless_Consumer_Execution_Scrcons_Substrate

@@ -1,0 +1,18 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: LSASS Credential Theft - Master Composite (L3)
+author: Ala Dabat
+techniques:
+- T1003.001
+- T1003.002
+minimum_truth: 'LSASS memory is touched or dumped: a dump command (comsvcs MiniDump, a known dumping tool), an LSASS
+  dump file written, or a process handle opened on lsass.exe.'
+reinforcement: Multiple independent signals converging on the same host and account; LOLBin (comsvcs) usage.
+data_sources:
+- DeviceProcessEvents
+- DeviceFileEvents
+- DeviceEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER

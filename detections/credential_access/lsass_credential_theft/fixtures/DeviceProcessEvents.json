@@ -1,0 +1,27 @@
+[
+  {
+    "Timestamp": "2020-10-18T23:50:05.910000Z",
+    "DeviceName": "WORKSTATION5",
+    "ActionType": "ProcessCreated",
+    "FileName": "rundll32.exe",
+    "FolderPath": "C:\\Windows\\System32\\rundll32.exe",
+    "ProcessId": 4824,
+    "ProcessCommandLine": "\"C:\\Windows\\System32\\rundll32.exe\" C:\\windows\\System32\\comsvcs.dll MiniDump 756 C:\\Users\\wardog\\AppData\\Local\\Temp\\lsass-comsvcs.dmp full",
+    "ProcessCreationTime": "2020-10-18T23:50:05.910000Z",
+    "ProcessIntegrityLevel": "High",
+    "AccountDomain": "WORKSTATION5",
+    "AccountName": "wardog",
+    "SHA256": "11064E9EDC605BD5B0C0A505538A0D5FD7DE53883AF342F091687CAE8628ACD0",
+    "SHA1": "7662A8D2F23C3474DEC6EF8E2B0365B0B86714EE",
+    "MD5": "F68AF942FD7CCC0E7BAB1A2335D2AD26",
+    "ProcessVersionInfoCompanyName": "Microsoft Corporation",
+    "ProcessVersionInfoProductName": "Microsoft® Windows® Operating System",
+    "ProcessVersionInfoOriginalFileName": "RUNDLL32.EXE",
+    "ProcessVersionInfoFileDescription": "Windows host process (Rundll32)",
+    "InitiatingProcessFileName": "powershell.exe",
+    "InitiatingProcessFolderPath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "InitiatingProcessId": 6100,
+    "InitiatingProcessCommandLine": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe ",
+    "DeviceId": "137f18dfa916cee5a45605076c9a60b45ede2b0c"
+  }
+]

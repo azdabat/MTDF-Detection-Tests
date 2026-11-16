@@ -1,0 +1,17 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: Scheduled Task Abuse - Rundll-Aware (Composite L2.5)
+author: Ala Dabat
+techniques:
+- T1053.005
+- T1218.011
+- T1059.001
+minimum_truth: schtasks.exe executes /create or /change.
+reinforcement: Script host, rundll32 script-protocol or encoded PowerShell action; user-writable task target; SYSTEM
+  run level.
+data_sources:
+- DeviceProcessEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 7d
+source_rule: Scheduled_Task_Abuse_Rundll_Aware_V2

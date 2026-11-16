@@ -1,0 +1,54 @@
+// ============================================================================
+// WMI-A3_L2_WmiPrvSE_Secondary_Execution_Victim (Composite L2)
+// Status: PRODUCTION READY (Temporal Joins Fixed)
+// Author: Ala Dabat
+// Version: 2026-01-15 (v2)
+// Platform: Microsoft Defender XDR Advanced Hunting (MDE)
+// Tables: DeviceProcessEvents (required), DeviceNetworkEvents (optional)
+// MITRE: T1047 (WMI), T1059 (Command/Scripting), TA0002 (Execution)
+// ============================================================================
+let lookback = 3650d;   // LAB: production uses 7d
+let TimeWindow = 2m; 
+
+let PayloadHints = dynamic(["-enc","http://","https://","\\\\","javascript:","vbscript:","scrobj.dll",".sct"]);
+let TargetChildren = dynamic(["cmd.exe","powershell.exe","pwsh.exe","mshta.exe","rundll32.exe","wscript.exe","cscript.exe"]);
+
+let L2_Base =
+    DeviceProcessEvents
+    | where Timestamp >= ago(lookback)
+    | where InitiatingProcessFileName =~ "wmiprvse.exe"
+    | where FileName in~ (TargetChildren)
+    | extend DeviceId, Timestamp, Cmd = ProcessCommandLine, Parent = InitiatingProcessFileName, 
+             Child = FileName, Account = coalesce(AccountName, InitiatingProcessAccountName);
+
+L2_Base
+| join kind=leftouter (
+    DeviceNetworkEvents
+    | where Timestamp >= ago(lookback)
+    | where RemotePort in (80,443) or RemoteUrl has_any ("http","https")
+    | project NetTime = Timestamp, DeviceId, RemoteUrl, RemoteIP
+) on DeviceId
+// *** THE FIX: Temporal Constraint ***
+// [FIX-W03] Flag nearby connections instead of filtering: the old `where isnull(NetTime) or
+//           abs(NetTime - Timestamp) <= TimeWindow` dropped the whole event on any device with
+//           web traffic outside the window (leftouter silently became inner).
+| extend IsNear = isnotnull(NetTime) and abs(NetTime - Timestamp) <= TimeWindow
+| summarize
+    HasPayloadHints = max(iff(Cmd has_any (PayloadHints), 1, 0)),
+    NetUrls         = make_set_if(RemoteUrl, IsNear, 10),
+    NetIPs          = make_set_if(RemoteIP, IsNear, 10),
+    HasNet          = max(iff(IsNear, 1, 0))
+    by Timestamp, DeviceId, DeviceName, Account, Parent, Child, Cmd
+
+| extend Severity = case(
+    HasNet == 1 and HasPayloadHints == 1, "CRITICAL",
+    HasNet == 1 or  HasPayloadHints == 1, "HIGH",
+    "MEDIUM"
+)
+| extend HunterDirectives = case(
+    Severity == "CRITICAL", "CRITICAL: wmiprvse spawned process + immediate network beacon. Highly likely WMI Lateral Movement.",
+    Severity == "HIGH",     "HIGH: wmiprvse spawned process with payload hints. Check parent chain.",
+    "MEDIUM: wmiprvse child process detected. Rare but potential admin activity."
+)
+| project Timestamp, Severity, DeviceName, Account, Parent, Child, Cmd, HasPayloadHints, HasNet, NetUrls, HunterDirectives
+| order by Severity desc

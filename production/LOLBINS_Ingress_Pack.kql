@@ -1,0 +1,51 @@
+// ============================================================================
+// COMPOSITE HUNT (L2 / Core+): Ingress Tool Transfer — Native LOLBins (High-Fidelity)
+// STATUS: PRODUCTION HARDENED (Tenant tuning required)
+// AUTHOR: Ala Dabat
+// TEST PACK: NOT COMPOSITED.
+// WHY (Framework):
+//   Minimum Truth  : Native transfer utility executed with external transfer intent (URL/external IP/transfer flags)
+//   Reinforcement  : Suspicious parent OR writable-path targeting
+//   Noise Control  : Suppress known maintenance/deployment patterns; suppress RFC1918/internal domains
+//
+// ATTACK CHAIN:
+//   Initial access / foothold → payload ingress via certutil/bits/curl/wget/ftp/tftp → stage → execute
+//
+// MITRE:
+//   TA0011 Command and Control (Ingress Tool Transfer), TA0005 Defense Evasion
+// ============================================================================
+let lookback = 7d;
+let Threshold = 60;
+
+let TransferLOLBins = dynamic(["certutil.exe","bitsadmin.exe","curl.exe","wget.exe","ftp.exe","tftp.exe"]);
+let SuspiciousParents = dynamic(["winword.exe","excel.exe","outlook.exe","wscript.exe","cscript.exe","mshta.exe"]);
+let SuspiciousDirs    = dynamic(["\\Users\\Public","\\Windows\\Temp","\\Temp","\\Downloads","\\AppData\\Local\\Temp"]);
+
+DeviceProcessEvents
+| where Timestamp >= ago(lookback)
+| where FileName in~ (TransferLOLBins)
+| where not(ProcessCommandLine has_any ("ccmcache","windows/system32/mpcmdrun.exe","AmazonSSMAgent","AzureADConnect"))
+| where not(ProcessCommandLine matches regex @"(?i)://(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.|.*\.corp\.|.*\.local|.*\.internal)")
+| where not(FileName =~ "certutil.exe" and ProcessCommandLine has_any ("-verify", "-dump", "-error"))
+| extend Cmd = tostring(ProcessCommandLine)
+| extend
+    HasNet = Cmd matches regex @"(?i)(http[s]?://|ftp://|\d{1,3}(\.\d{1,3}){3})",
+    HasIngressFlags = Cmd has_any ("-urlcache","-split","/transfer","/addfile","--remote-name","--output","-o ","-O "),
+    BadParent = tostring(InitiatingProcessFileName) in~ (SuspiciousParents),
+    BadDir = Cmd has_any (SuspiciousDirs)
+| where HasNet or HasIngressFlags   // Minimum Truth (intent / external transfer)
+| extend RiskScore =
+      60
+    + iif(HasNet, 15, 0)
+    + iif(HasIngressFlags, 15, 0)
+    + iif(BadParent, 25, 0)
+    + iif(BadDir, 10, 0)
+| where RiskScore >= Threshold
+| extend Severity = case(RiskScore >= 95, "CRITICAL", RiskScore >= 75, "HIGH", "MEDIUM")
+| extend Hunter_Directive = strcat(
+    "ACTION: ", Severity, " ingress via native transfer utility | ",
+    "CONTEXT: External transfer intent (HasNet=", tostring(HasNet), ", Flags=", tostring(HasIngressFlags), ") | ",
+    "PIVOT: confirm destination URL/IP, identify written file (Temp/Public/Downloads), check immediate child execution, and scope same cmdline across estate."
+)
+| project Timestamp, DeviceName, AccountName, FileName, RiskScore, Severity, Hunter_Directive, ProcessCommandLine, InitiatingProcessFileName
+| order by RiskScore desc, Timestamp desc

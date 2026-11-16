@@ -1,0 +1,31 @@
+[
+  {
+    "Timestamp": "2020-10-18T23:50:06.229000Z",
+    "DeviceName": "WORKSTATION5",
+    "ActionType": "FileCreated",
+    "FileName": "RUNDLL32.EXE-B1101E56.pf",
+    "FolderPath": "C:\\Windows\\Prefetch\\RUNDLL32.EXE-B1101E56.pf",
+    "InitiatingProcessFileName": "svchost.exe",
+    "InitiatingProcessFolderPath": "C:\\windows\\system32\\svchost.exe",
+    "InitiatingProcessId": 1556,
+    "DeviceId": "137f18dfa916cee5a45605076c9a60b45ede2b0c"
+  },
+  {
+    "Timestamp": "2020-10-18T23:50:05.963000Z",
+    "DeviceName": "WORKSTATION5",
+    "ActionType": "FileCreated",
+    "FileName": "lsass-comsvcs.dmp",
+    "FolderPath": "C:\\Users\\wardog\\AppData\\Local\\Temp\\lsass-comsvcs.dmp",
+    "InitiatingProcessFileName": "rundll32.exe",
+    "InitiatingProcessFolderPath": "C:\\Windows\\System32\\rundll32.exe",
+    "InitiatingProcessId": 4824,
+    "DeviceId": "137f18dfa916cee5a45605076c9a60b45ede2b0c",
+    "InitiatingProcessSHA256": "11064E9EDC605BD5B0C0A505538A0D5FD7DE53883AF342F091687CAE8628ACD0",
+    "InitiatingProcessSHA1": "7662A8D2F23C3474DEC6EF8E2B0365B0B86714EE",
+    "InitiatingProcessMD5": "F68AF942FD7CCC0E7BAB1A2335D2AD26",
+    "InitiatingProcessVersionInfoCompanyName": "Microsoft Corporation",
+    "InitiatingProcessVersionInfoProductName": "Microsoft® Windows® Operating System",
+    "InitiatingProcessVersionInfoOriginalFileName": "RUNDLL32.EXE",
+    "InitiatingProcessVersionInfoFileDescription": "Windows host process (Rundll32)"
+  }
+]

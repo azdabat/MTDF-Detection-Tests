@@ -1,0 +1,18 @@
+name: Registry persistence - TaskCache silent task (Empire schtasks)
+rule: Registry_Persistence_Background_Service_TaskCache.kql
+fixture: fixtures
+technique: T1053.005, T1543.003
+source: OTRF empire_schtasks_creation_execution_elevated_user
+source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip
+catches: "\\MordorElevated task materialising in Schedule\\TaskCache\\Tree and \\Tasks"
+notes: >
+  Real Empire telemetry. A scheduled task registered as SYSTEM materialises in
+  Schedule\TaskCache\Tree and \Tasks, written by svchost. The rule must fire,
+  classify as TaskCache, and surface the malicious task specifically.
+maturity: experimental
+expect:
+  must_fire: true
+  contains:
+    - PersistenceClass: ["TaskCache(SilentTask)"]
+    - RegistryKey: ['HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MordorElevated']
+  columns: [RiskScore, RiskLevel, PersistenceClass, HunterDirective, RegistryKey]

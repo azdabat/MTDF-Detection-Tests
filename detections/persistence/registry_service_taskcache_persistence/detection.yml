@@ -1,0 +1,18 @@
+# Detection metadata - source of truth for the generated README in this folder.
+title: Registry Persistence - Scheduled Task Cache & Service ImagePath (Composite L3)
+author: Ala Dabat
+techniques:
+- T1053.005
+- T1543.003
+minimum_truth: A RegistryValueSet in Schedule\TaskCache (Tree / Tasks) - the trace every scheduled task leaves,
+  even one registered through COM or PowerShell APIs without schtasks.exe - or a service ImagePath write under Services.
+reinforcement: Dangerous primitives or encoded payloads in the value or writer command line; network indicators;
+  user-writable targets; large blobs; untrusted or rare writer.
+data_sources:
+- DeviceRegistryEvents
+- DeviceFileEvents
+platforms:
+- Microsoft Defender XDR Advanced Hunting
+- Microsoft Sentinel (MDE connector)
+production_lookback: 14d
+source_rule: Registry_Persistence_Background_Service_TaskCache
