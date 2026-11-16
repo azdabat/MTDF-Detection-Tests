@@ -3,7 +3,7 @@
 # WMI Fileless Consumer Execution - scrcons Substrate (Composite L2)
 
 **Tactic:** Persistence (TA0003) · **ATT&CK:** [T1546.003](https://attack.mitre.org/techniques/T1546/003/) · [T1047](https://attack.mitre.org/techniques/T1047/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (1/1 passing)  
 **Data:** `DeviceImageLoadEvents`, `DeviceNetworkEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`WMI_Fileless_Consumer_Execution_Scrcons_Substrate.kql`](WMI_Fileless_Consumer_Execution_Scrcons_Substrate.kql) · **Author:** Ala Dabat
 
@@ -19,7 +19,7 @@ Network activity from scrcons.exe; rarity of scrcons script execution on the dev
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Covenant | [`covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip) | scrcons.exe loading script engines for an ActiveScriptEventConsumer | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Covenant | [`covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip) | scrcons.exe loading script engines for an ActiveScriptEventConsumer | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

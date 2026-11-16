@@ -3,7 +3,7 @@
 # Ingress Tool Transfer - LOLBin Pack (Composite L2)
 
 **Tactic:** Command and Control (TA0011) · **ATT&CK:** [T1105](https://attack.mitre.org/techniques/T1105/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (1/1 passing)  
 **Data:** `DeviceProcessEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`LOLBINS_Ingress_Pack.kql`](LOLBINS_Ingress_Pack.kql) · **Author:** Ala Dabat
 
@@ -19,7 +19,7 @@ Suspicious parent OR writable-path targeting.
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Native cmd | [`cmd_bitsadmin_download_psh_script`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/cmd_bitsadmin_download_psh_script.zip) | bitsadmin /transfer pulling a script from the internet | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Native cmd | [`cmd_bitsadmin_download_psh_script`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/cmd_bitsadmin_download_psh_script.zip) | bitsadmin /transfer pulling a script from the internet | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

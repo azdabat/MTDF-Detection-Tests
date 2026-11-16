@@ -3,7 +3,7 @@
 # Registry Persistence - LSA / Security Support Providers (Composite L3)
 
 **Tactic:** Persistence (TA0003) · **ATT&CK:** [T1547.009](https://attack.mitre.org/techniques/T1547/009/) · [T1112](https://attack.mitre.org/techniques/T1112/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (1/1 passing)  
 **Data:** `DeviceRegistryEvents`, `DeviceFileEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 14d  
 **Rule:** [`Registry_Persistence_LSA_SecurityProviders.kql`](Registry_Persistence_LSA_SecurityProviders.kql) · **Author:** Ala Dabat
 
@@ -19,7 +19,7 @@ DLL referenced from a user-writable path; untrusted or rare writer.
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_wdigest_downgrade`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz) | SecurityProviders\WDigest\UseLogonCredential = 1 set by powershell.exe | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_wdigest_downgrade`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz) | SecurityProviders\WDigest\UseLogonCredential = 1 set by powershell.exe | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

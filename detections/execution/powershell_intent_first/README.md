@@ -3,7 +3,7 @@
 # PowerShell Download Cradle / Stager - Intent-Gated (Composite L2)
 
 **Tactic:** Execution (TA0002) · **ATT&CK:** [T1059.001](https://attack.mitre.org/techniques/T1059/001/) · [T1105](https://attack.mitre.org/techniques/T1105/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** ⚠️ Boundary documented (no passing implementation)  
 **Data:** `DeviceProcessEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`Powershell_Intent_First_Composite.kql`](Powershell_Intent_First_Composite.kql) · **Author:** Ala Dabat
 
@@ -19,8 +19,8 @@ Obfuscation / execution (IEX, -enc, base64), suspicious parent, writable-path ta
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_launcher_vbs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip) | Hidden, non-interactive, encoded PowerShell launched by a script host or UAC bypass | experimental | ⏳ Not run |
-| [`test_empire_uac_fodhelper.yml`](test_empire_uac_fodhelper.yml) | Empire | [`empire_uac_shellapi_fodhelper`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/privilege_escalation/host/empire_uac_shellapi_fodhelper.zip) | Hidden, non-interactive, encoded PowerShell launched by a script host or UAC bypass | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_launcher_vbs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip) | Hidden, non-interactive, encoded PowerShell launched by a script host or UAC bypass | experimental | ⚠️ Boundary |
+| [`test_empire_uac_fodhelper.yml`](test_empire_uac_fodhelper.yml) | Empire | [`empire_uac_shellapi_fodhelper`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/privilege_escalation/host/empire_uac_shellapi_fodhelper.zip) | Hidden, non-interactive, encoded PowerShell launched by a script host or UAC bypass | experimental | ⚠️ Boundary |
 
 ## Known coverage boundaries
 

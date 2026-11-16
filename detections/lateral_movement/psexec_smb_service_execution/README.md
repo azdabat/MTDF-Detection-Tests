@@ -3,7 +3,7 @@
 # SMB + Service Execution - PsExec / Impacket Style (Composite L2.5)
 
 **Tactic:** Lateral Movement (TA0008) · **ATT&CK:** [T1021.002](https://attack.mitre.org/techniques/T1021/002/) · [T1569.002](https://attack.mitre.org/techniques/T1569/002/) · [T1543.003](https://attack.mitre.org/techniques/T1543/003/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (3/3 passing)  
 **Data:** `DeviceProcessEvents`, `DeviceNetworkEvents`, `DeviceFileEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 3d  
 **Rule:** [`PsExec_SMB_Service_Execution_REVISED.kql`](PsExec_SMB_Service_Execution_REVISED.kql) · **Author:** Ala Dabat
 
@@ -19,9 +19,9 @@ Executable or script staged on the host in the same window; multiple inbound sou
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_psexec_dcerpc_tcp_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ⏳ Not run |
-| [`test_smbexec.yml`](test_smbexec.yml) | Empire | [`empire_smbexec_dcerpc_smb_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_smbexec_dcerpc_smb_svcctl.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ⏳ Not run |
-| [`test_sysinternals_psexec.yml`](test_sysinternals_psexec.yml) | Sysinternals PsExec | [`cmd_psexec_lsa_secrets_dump`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_psexec_lsa_secrets_dump.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_psexec_dcerpc_tcp_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ✅ Pass (1 rows) |
+| [`test_smbexec.yml`](test_smbexec.yml) | Empire | [`empire_smbexec_dcerpc_smb_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_smbexec_dcerpc_smb_svcctl.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ✅ Pass (1 rows) |
+| [`test_sysinternals_psexec.yml`](test_sysinternals_psexec.yml) | Sysinternals PsExec | [`cmd_psexec_lsa_secrets_dump`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_psexec_lsa_secrets_dump.zip) | Remote service created over SMB that launches a command interpreter on the victim | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

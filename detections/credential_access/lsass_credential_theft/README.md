@@ -3,7 +3,7 @@
 # LSASS Credential Theft - Master Composite (L3)
 
 **Tactic:** Credential Access (TA0006) · **ATT&CK:** [T1003.001](https://attack.mitre.org/techniques/T1003/001/) · [T1003.002](https://attack.mitre.org/techniques/T1003/002/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (1/1 passing)  
 **Data:** `DeviceProcessEvents`, `DeviceFileEvents`, `DeviceEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER.kql`](COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER.kql) · **Author:** Ala Dabat
 
@@ -19,8 +19,8 @@ Multiple independent signals converging on the same host and account; LOLBin (co
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Native PowerShell | [`psh_lsass_memory_dump_comsvcs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/psh_lsass_memory_dump_comsvcs.zip) | rundll32 comsvcs.dll MiniDump of lsass scored CRITICAL | experimental | ⏳ Not run |
-| [`test_benign.yml`](test_benign.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | No alert on routine LSASS handle access by svchost/services | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Native PowerShell | [`psh_lsass_memory_dump_comsvcs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/psh_lsass_memory_dump_comsvcs.zip) | rundll32 comsvcs.dll MiniDump of lsass scored CRITICAL | experimental | ✅ Pass (2 rows) |
+| [`test_benign.yml`](test_benign.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | No alert on routine LSASS handle access by svchost/services | experimental | ⚠️ Boundary |
 
 ## Known coverage boundaries
 

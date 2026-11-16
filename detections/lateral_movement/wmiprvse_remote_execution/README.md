@@ -3,7 +3,7 @@
 # WMI Remote Execution - WmiPrvSE Secondary Execution, Victim Side (Composite L2)
 
 **Tactic:** Lateral Movement (TA0008) · **ATT&CK:** [T1047](https://attack.mitre.org/techniques/T1047/) · [T1059](https://attack.mitre.org/techniques/T1059/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (2/2 passing)  
 **Data:** `DeviceProcessEvents`, `DeviceNetworkEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`WmiPrvSE_Secondary_Execution_Victim.kql`](WmiPrvSE_Secondary_Execution_Victim.kql) · **Author:** Ala Dabat
 
@@ -19,8 +19,8 @@ Payload hints in the command line; web connection from the host within 2 minutes
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip) | WmiPrvSE spawning an encoded PowerShell stager that beacons within 2 minutes | experimental | ⏳ Not run |
-| [`test_busy_device.yml`](test_busy_device.yml) | Empire + synthetic row | [`empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod + 1 synthetic benign connection`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip) | The attack still alerts when the device also browsed the web hours earlier | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip) | WmiPrvSE spawning an encoded PowerShell stager that beacons within 2 minutes | experimental | ✅ Pass (1 rows) |
+| [`test_busy_device.yml`](test_busy_device.yml) | Empire + synthetic row | [`empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod + 1 synthetic benign connection`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip) | The attack still alerts when the device also browsed the web hours earlier | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

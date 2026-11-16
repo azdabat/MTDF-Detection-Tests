@@ -3,7 +3,7 @@
 # NTDS / Registry Hive Credential Dumping (Composite L2)
 
 **Tactic:** Credential Access (TA0006) · **ATT&CK:** [T1003.003](https://attack.mitre.org/techniques/T1003/003/) · [T1003.002](https://attack.mitre.org/techniques/T1003/002/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (3/3 passing)  
 **Data:** `DeviceProcessEvents`, `DeviceFileEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`NTDS_Domain_Credential_Dumping_V2.kql`](NTDS_Domain_Credential_Dumping_V2.kql) · **Author:** Ala Dabat
 
@@ -19,10 +19,10 @@ Staging path, follow-on transfer, multiple dump techniques on one host.
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Native cmd | [`cmd_dumping_ntds_dit_file_ntdsutil`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_dumping_ntds_dit_file_ntdsutil.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ⏳ Not run |
-| [`test_empire_ninjacopy.yml`](test_empire_ninjacopy.yml) | Empire | [`empire_ninjacopy_dumping_ntds_dit_file`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_ninjacopy_dumping_ntds_dit_file.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ⏳ Not run |
-| [`test_empire_reg_save_sam.yml`](test_empire_reg_save_sam.yml) | Empire | [`empire_shell_reg_dump_sam`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_shell_reg_dump_sam.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ⏳ Not run |
-| [`test_volume_shadow_copy.yml`](test_volume_shadow_copy.yml) | Native cmd | [`cmd_dumping_ntds_dit_file_volume_shadow_copy`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_dumping_ntds_dit_file_volume_shadow_copy.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Native cmd | [`cmd_dumping_ntds_dit_file_ntdsutil`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_dumping_ntds_dit_file_ntdsutil.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ✅ Pass (1 rows) |
+| [`test_empire_ninjacopy.yml`](test_empire_ninjacopy.yml) | Empire | [`empire_ninjacopy_dumping_ntds_dit_file`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_ninjacopy_dumping_ntds_dit_file.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ⚠️ Boundary |
+| [`test_empire_reg_save_sam.yml`](test_empire_reg_save_sam.yml) | Empire | [`empire_shell_reg_dump_sam`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/empire_shell_reg_dump_sam.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ✅ Pass (1 rows) |
+| [`test_volume_shadow_copy.yml`](test_volume_shadow_copy.yml) | Native cmd | [`cmd_dumping_ntds_dit_file_volume_shadow_copy`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/credential_access/host/cmd_dumping_ntds_dit_file_volume_shadow_copy.zip) | ntdsutil IFM, shadow-copy or hive-save access to credential stores | experimental | ✅ Pass (1 rows) |
 
 ## Known coverage boundaries
 

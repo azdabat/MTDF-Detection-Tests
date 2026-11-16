@@ -3,7 +3,7 @@
 # Registry Persistence - Scheduled Task Cache & Service ImagePath (Composite L3)
 
 **Tactic:** Persistence (TA0003) · **ATT&CK:** [T1053.005](https://attack.mitre.org/techniques/T1053/005/) · [T1543.003](https://attack.mitre.org/techniques/T1543/003/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (3/3 passing)  
 **Data:** `DeviceRegistryEvents`, `DeviceFileEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 14d  
 **Rule:** [`Registry_Persistence_Background_Service_TaskCache.kql`](Registry_Persistence_Background_Service_TaskCache.kql) · **Author:** Ala Dabat
 
@@ -19,9 +19,9 @@ Dangerous primitives or encoded payloads in the value or writer command line; ne
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | \MordorElevated task materialising in Schedule\TaskCache\Tree and \Tasks | experimental | ⏳ Not run |
-| [`test_service_imagepath_empire_psexec.yml`](test_service_imagepath_empire_psexec.yml) | Empire | [`empire_psexec_dcerpc_tcp_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip) | Service Updater ImagePath = %COMSPEC% /C start /b powershell -noP -sta -w 1 -enc ... | experimental | ⏳ Not run |
-| [`test_service_imagepath_sharpsc.yml`](test_service_imagepath_sharpsc.yml) | Covenant | [`covenant_sharpsc_create_dcerpc_smb_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/covenant_sharpsc_create_dcerpc_smb_svcctl.zip) | Remote service Cyb3rWard0g created over SMB with ImagePath C:\Windows\System32\GruntHTTP2.exe | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | \MordorElevated task materialising in Schedule\TaskCache\Tree and \Tasks | experimental | ✅ Pass (26 rows) |
+| [`test_service_imagepath_empire_psexec.yml`](test_service_imagepath_empire_psexec.yml) | Empire | [`empire_psexec_dcerpc_tcp_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip) | Service Updater ImagePath = %COMSPEC% /C start /b powershell -noP -sta -w 1 -enc ... | experimental | ✅ Pass (3 rows) |
+| [`test_service_imagepath_sharpsc.yml`](test_service_imagepath_sharpsc.yml) | Covenant | [`covenant_sharpsc_create_dcerpc_smb_svcctl`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/covenant_sharpsc_create_dcerpc_smb_svcctl.zip) | Remote service Cyb3rWard0g created over SMB with ImagePath C:\Windows\System32\GruntHTTP2.exe | experimental | ✅ Pass (6 rows) |
 
 ## Run it
 

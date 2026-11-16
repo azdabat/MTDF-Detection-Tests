@@ -3,7 +3,7 @@
 # Scheduled Task Abuse - Rundll-Aware (Composite L2.5)
 
 **Tactic:** Execution (TA0002) · **ATT&CK:** [T1053.005](https://attack.mitre.org/techniques/T1053/005/) · [T1218.011](https://attack.mitre.org/techniques/T1218/011/) · [T1059.001](https://attack.mitre.org/techniques/T1059/001/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** 🧪 In validation (3/3 passing)  
 **Data:** `DeviceProcessEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`Scheduled_Task_Abuse_Rundll_Aware_V2.kql`](Scheduled_Task_Abuse_Rundll_Aware_V2.kql) · **Author:** Ala Dabat
 
@@ -19,9 +19,9 @@ Script host, rundll32 script-protocol or encoded PowerShell action; user-writabl
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ⏳ Not run |
-| [`test_empire_standard_user.yml`](test_empire_standard_user.yml) | Empire | [`empire_schtasks_creation_standard_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_standard_user.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ⏳ Not run |
-| [`test_schtask_create.yml`](test_schtask_create.yml) | Native schtasks | [`schtask_create`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/schtask_create.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_schtasks_creation_execution_elevated_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ✅ Pass (1 rows) |
+| [`test_empire_standard_user.yml`](test_empire_standard_user.yml) | Empire | [`empire_schtasks_creation_standard_user`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_standard_user.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ✅ Pass (1 rows) |
+| [`test_schtask_create.yml`](test_schtask_create.yml) | Native schtasks | [`schtask_create`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/lateral_movement/host/schtask_create.zip) | schtasks /create with a script-host or encoded PowerShell action | experimental | ✅ Pass (1 rows) |
 
 ## Run it
 

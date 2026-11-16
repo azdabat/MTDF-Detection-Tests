@@ -3,7 +3,7 @@
 # Ingress Tool Transfer - PowerShell Download Cradle (Composite L2.5)
 
 **Tactic:** Command and Control (TA0011) · **ATT&CK:** [T1105](https://attack.mitre.org/techniques/T1105/) · [T1059.001](https://attack.mitre.org/techniques/T1059/001/)  
-**Status:** ⏳ Awaiting first run  
+**Status:** ⚠️ Boundary documented (no passing implementation)  
 **Data:** `DeviceProcessEvents`, `DeviceFileEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`PowerShell_Download_Ingress_Cradle_V2.kql`](PowerShell_Download_Ingress_Cradle_V2.kql) · **Author:** Ala Dabat
 
@@ -19,8 +19,8 @@ Execution intent (IEX), long -enc payload, suspicious parent, writable-path or e
 
 | Test | Implementation | Telemetry | Must catch | Maturity | Last result |
 |---|---|---|---|---|---|
-| [`test.yml`](test.yml) | Empire | [`empire_launcher_vbs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip) | Empire stager: hidden, encoded PowerShell cradle launched from a script host | experimental | ⏳ Not run |
-| [`test_empire_sct_regsvr32.yml`](test_empire_sct_regsvr32.yml) | Empire | [`empire_launcher_sct_regsvr32`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/empire_launcher_sct_regsvr32.zip) | Empire stager: hidden, encoded PowerShell cradle launched from a script host | experimental | ⏳ Not run |
+| [`test.yml`](test.yml) | Empire | [`empire_launcher_vbs`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip) | Empire stager: hidden, encoded PowerShell cradle launched from a script host | experimental | ⚠️ Boundary |
+| [`test_empire_sct_regsvr32.yml`](test_empire_sct_regsvr32.yml) | Empire | [`empire_launcher_sct_regsvr32`](https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/defense_evasion/host/empire_launcher_sct_regsvr32.zip) | Empire stager: hidden, encoded PowerShell cradle launched from a script host | experimental | ⚠️ Boundary |
 
 ## Known coverage boundaries
 
