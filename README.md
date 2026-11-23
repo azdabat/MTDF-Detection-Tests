@@ -10,7 +10,7 @@ Each detection is anchored on a **minimum truth**: the one observable an attack 
 
 <!-- COVERAGE:START -->
 **12 detections** across **5 of 14** ATT&CK tactics · **19** tests passing on recorded adversary telemetry · implementations proven: Covenant, Empire, Native PowerShell, Native cmd, Native schtasks, Sysinternals PsExec  
-_Last test run: 2026-11-23 17:10 UTC_
+_Last test run: 2026-11-23 17:15 UTC_
 
 | Tactic | Detection | ATT&CK | Proven against | Status |
 |---|---|---|---|---|

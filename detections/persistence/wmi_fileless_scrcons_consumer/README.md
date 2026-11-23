@@ -3,7 +3,7 @@
 # WMI Fileless Consumer Execution - scrcons Substrate (Composite L2)
 
 **Tactic:** Persistence (TA0003) · **ATT&CK:** [T1546.003](https://attack.mitre.org/techniques/T1546/003/) · [T1047](https://attack.mitre.org/techniques/T1047/)  
-**Status:** In validation (1/1 passing)  
+**Status:** 🧪 In validation (1/1 passing)  
 **Data:** `DeviceImageLoadEvents`, `DeviceNetworkEvents` · **Platforms:** Microsoft Defender XDR Advanced Hunting, Microsoft Sentinel (MDE connector) · **Production lookback:** 7d  
 **Rule:** [`WMI_Fileless_Consumer_Execution_Scrcons_Substrate.kql`](WMI_Fileless_Consumer_Execution_Scrcons_Substrate.kql) · **Author:** Ala Dabat
 
