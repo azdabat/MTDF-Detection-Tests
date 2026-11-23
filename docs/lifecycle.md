@@ -21,6 +21,7 @@ flowchart LR
 | Lint | `python tools/lint_kql.py detections --no-port` | No MTDF bug class remains (ERROR blocks) |
 | Compile | `python tools/semantic_check.py` | Parses and type-checks as Defender would, against the Defender schema |
 | Test | `python tools/run_tests.py` | Each rule catches the attack it claims to: PASS / FAIL / KNOWN |
+| Precision | `python tools/precision_matrix.py` | Each rule stays silent on every *other* attack's capture, or the hit is reviewed and explained ([precision matrix](precision.md)) |
 | Hunt | `python tools/hunt_all.py` | Behaviour over a whole tenant of mixed data |
 | Publish | `publish.ps1 -Message "..."` | CI re-runs everything on a clean engine and regenerates the docs |
 

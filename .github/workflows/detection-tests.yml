@@ -78,6 +78,13 @@ jobs:
           ADX_DB: NetDefaultDB
         run: python tools/run_tests.py --json docs/results.json
 
+      - name: Precision matrix (every rule against every other capture)
+        if: always() && steps.tests.outcome != 'skipped'
+        env:
+          ADX_CLUSTER: http://localhost:8080
+          ADX_DB: NetDefaultDB
+        run: python tools/precision_matrix.py
+
       - name: Build docs
         if: always() && steps.tests.outcome != 'skipped'
         run: python tools/build_docs.py

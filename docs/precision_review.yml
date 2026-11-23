@@ -1,0 +1,10 @@
+# Reviewed verdicts for cross-capture hits in docs/precision.md.
+# A hit is a rule firing on a capture its own tests do not claim. Classify each one:
+#   tp  the capture genuinely contains the behaviour the rule detects (say what, in the reason)
+#   fp  the rule should not have fired: a rule bug to fix (say why)
+# Unreviewed hits show as "review" in the matrix and never count as passes.
+#
+# reviews:
+#   <detection folder>:
+#     <capture>: {verdict: tp, reason: "..."}
+reviews: {}

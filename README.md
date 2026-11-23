@@ -41,6 +41,10 @@ _Last test run: 2026-11-23 19:16 UTC_
 🗺️ **[Open the coverage map in MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2Fazdabat%2FMTDF-Detection-Tests%2Fmain%2Fdocs%2Fattack-navigator-layer.json)** (green = validated in CI, amber = in validation)
 <!-- COVERAGE:END -->
 
+<!-- PRECISION:START -->
+**Precision:** every rule also runs against every *other* recorded capture. Not run yet. [Precision matrix](docs/precision.md)
+<!-- PRECISION:END -->
+
 ## Pipeline
 
 ```mermaid

@@ -54,6 +54,9 @@ Step 4 "Run every test: each rule against the real attack it must catch"
 python tools\run_tests.py --json docs\results.json
 $tests = $LASTEXITCODE
 
+Step "4a" "Precision: every rule against every OTHER capture (must stay silent unless the capture has the behaviour)"
+python tools\precision_matrix.py
+
 Step 5 "Regenerate README coverage, detection pages and the ATT&CK Navigator layer"
 python tools\build_docs.py
 
