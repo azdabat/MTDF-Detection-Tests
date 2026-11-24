@@ -4,7 +4,7 @@
 
 The test suite proves each rule **fires** on the attack it claims. This matrix proves the other half: every rule runs, unchanged, against **every** recorded capture in the repository, and must stay silent on attacks it does not claim, unless the capture genuinely contains its behaviour. A rule that returned every event would fill this page with ❌.
 
-Last run: **2026-11-24 11:02 UTC** on Kustainer (Azure Data Explorer emulator). 12 detections × 19 captures = 228 runs.
+Last run: **2026-11-24 11:06 UTC** on Kustainer (Azure Data Explorer emulator). 12 detections × 19 captures = 228 runs.
 
 | Result | Count | Meaning |
 |---|---|---|
@@ -68,7 +68,7 @@ Each hit on a capture the rule does not claim, with what it returned and the rev
 
 **Why:** The capture is filed under lateral movement, but what PsExec runs on the target is a credential dump: `reg save HKLM\security\policy\secrets` to the user's Temp folder (LSA secrets, T1003.004). The rule's hive signal (HKLM\SECURITY) scores it 60, a HIGH hive-dump alert. Correct, and a second implementation of the hive-dump path.
 
-- **score:** `60`
+- **what:** `['"reg" save hklm\\security\\policy\\secrets c:\\users\\wardog\\appdata\\local\\temp\\secrets']` · **why:** `HIGH: SAM/SYSTEM Registry Hives exported. Local Admin/Domain credential theft likely.` · **score:** `60`
 
 ## Limits
 

