@@ -41,7 +41,7 @@ _Last test run: 2026-11-24 11:02 UTC_
 <!-- COVERAGE:END -->
 
 <!-- PRECISION:START -->
-**Precision:** every rule also runs against every *other* recorded capture (12 × 19). Last run: 164 silent · 0 genuine hits · 0 false positives · 1 to review · 40 no data. [Precision matrix](docs/precision.md)
+**Precision:** every rule also runs against every *other* recorded capture (12 × 19). Last run: 164 silent · 1 genuine hits · 0 false positives · 0 to review · 40 no data. [Precision matrix](docs/precision.md)
 <!-- PRECISION:END -->
 
 ## Pipeline

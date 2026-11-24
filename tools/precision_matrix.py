@@ -46,7 +46,9 @@ START, END = "<!-- PRECISION:START -->", "<!-- PRECISION:END -->"
 
 # columns worth showing a reviewer, first match wins per slot
 _SUMMARY = [
-    ("what", ["ProcessCommandLine", "CommandLine", "Cmd", "RegistryKey", "FolderPath", "FileName", "RemoteUrl", "RemoteIP"]),
+    ("what", ["ProcessCommandLine", "CommandLine", "Cmd", "Evidence", "EvidenceList", "ServiceCmds", "RegistryKey",
+              "FolderPath", "FileName", "RemoteUrl", "RemoteIP"]),
+    ("why", ["Hunter_Directive", "HunterDirective", "HunterDirectives", "RoutingDirective", "TaskActionCategory"]),
     ("by", ["InitiatingProcessFileName", "InitiatingProcessCommandLine", "ParentProcess", "Actor"]),
     ("score", ["RiskScore", "Score", "RiskLevel", "Severity"]),
 ]
@@ -228,7 +230,7 @@ def build_docs(data):
                 L.append(f"**Why:** {rv['reason']}")
                 L.append("")
             for s in c.get("sample", []):
-                bits = [f"**{k}:** `{s[k]}`" for k in ("what", "by", "score") if k in s]
+                bits = [f"**{k}:** `{s[k]}`" for k in ("what", "why", "by", "score") if k in s]
                 L.append("- " + " · ".join(bits) if bits else "- (row without summary columns)")
             if c["rows"] > len(c.get("sample", [])):
                 L.append(f"- … {c['rows'] - len(c.get('sample', []))} more")

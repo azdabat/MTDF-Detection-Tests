@@ -7,4 +7,12 @@
 # reviews:
 #   <detection folder>:
 #     <capture>: {verdict: tp, reason: "..."}
-reviews: {}
+reviews:
+  ntds_credential_dumping:
+    cmd_psexec_lsa_secrets_dump:
+      verdict: tp
+      reason: >-
+        The capture is filed under lateral movement, but what PsExec runs on the target is a
+        credential dump: `reg save HKLM\security\policy\secrets` to the user's Temp folder
+        (LSA secrets, T1003.004). The rule's hive signal (HKLM\SECURITY) scores it 60, a HIGH
+        hive-dump alert. Correct, and a second implementation of the hive-dump path.

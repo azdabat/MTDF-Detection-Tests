@@ -9,13 +9,13 @@ Last run: **2026-11-24 11:02 UTC** on Kustainer (Azure Data Explorer emulator). 
 | Result | Count | Meaning |
 |---|---|---|
 | · silent | 164 | ran on another technique's capture and returned nothing |
-| 🎯 true positive | 0 | fired on another capture that genuinely contains the behaviour (reviewed, reason below) |
+| 🎯 true positive | 1 | fired on another capture that genuinely contains the behaviour (reviewed, reason below) |
 | ❌ false positive | 0 | fired where it should not: a rule bug, tracked below |
-| 🔍 to review | 1 | fired on another capture, not yet classified |
+| 🔍 to review | 0 | fired on another capture, not yet classified |
 | – no data | 40 | the capture has none of the tables the rule reads; proves nothing either way |
 | ✅ own capture | 23 | the capture the rule's own tests use (see the README coverage table) |
 
-**Cross-capture precision: 164 of 165 runs with data were silent or genuine hits (1 still to review).**
+**Cross-capture precision: 165 of 165 runs with data were silent or genuine hits.**
 
 ## Matrix
 
@@ -26,7 +26,7 @@ Columns are captures (key below). Cell = result; for fires, the row count.
 | `ingress_tool_transfer_native` | ✅ 1 | · | · | · | – | · | · | · | · | · | · | · | · | · | · | – | · | · | · |
 | `lolbin_ingress_transfer` | ✅ 1 | · | · | · | – | · | · | · | · | · | · | · | · | · | · | – | · | · | · |
 | `lsass_credential_theft` | · | · | · | · | – | · | · | · | · | · | · | · | · | · | · | – | · | ✅ 2 | · |
-| `ntds_credential_dumping` | · | ✅ 1 | ✅ 1 | 🔍 1 | – | · | · | · | ⚠️ 0 | · | · | · | ✅ 1 | · | · | – | · | · | · |
+| `ntds_credential_dumping` | · | ✅ 1 | ✅ 1 | 🎯 1 | – | · | · | · | ⚠️ 0 | · | · | · | ✅ 1 | · | · | – | · | · | · |
 | `powershell_download_cradle` | · | · | · | · | – | · | ⚠️ 0 | ⚠️ 0 | · | · | · | · | · | · | · | – | · | · | · |
 | `powershell_intent_first` | · | · | · | · | – | · | · | ⚠️ 0 | · | · | · | · | · | · | ⚠️ 0 | – | · | · | · |
 | `psexec_smb_service_execution` | · | · | · | ✅ 1 | – | · | · | · | · | ✅ 1 | · | · | · | ✅ 1 | · | – | · | · | · |
@@ -64,7 +64,9 @@ Columns are captures (key below). Cell = result; for fires, the row count.
 
 Each hit on a capture the rule does not claim, with what it returned and the reviewed verdict.
 
-### `ntds_credential_dumping` on `cmd_psexec_lsa_secrets_dump`: 🔍 not yet reviewed
+### `ntds_credential_dumping` on `cmd_psexec_lsa_secrets_dump`: 🎯 true positive
+
+**Why:** The capture is filed under lateral movement, but what PsExec runs on the target is a credential dump: `reg save HKLM\security\policy\secrets` to the user's Temp folder (LSA secrets, T1003.004). The rule's hive signal (HKLM\SECURITY) scores it 60, a HIGH hive-dump alert. Correct, and a second implementation of the hive-dump path.
 
 - **score:** `60`
 
