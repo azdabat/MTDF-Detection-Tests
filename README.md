@@ -9,8 +9,8 @@ Each detection is anchored on a **minimum truth**: the one observable an attack 
 ## Coverage
 
 <!-- COVERAGE:START -->
-**12 detections** across **5 of 14** ATT&CK tactics · **19** tests passing on recorded adversary telemetry · implementations proven: Covenant, Empire, Native PowerShell, Native cmd, Native schtasks, Sysinternals PsExec  
-_Last test run: 2026-11-23 19:16 UTC_
+**12 detections** across **5 of 14** ATT&CK tactics · **20** tests passing on recorded adversary telemetry · implementations proven: Covenant, Empire, Native PowerShell, Native cmd, Native schtasks, Sysinternals PsExec  
+_Last test run: 2026-11-24 11:02 UTC_
 
 | Tactic | Detection | ATT&CK | Proven against | Status |
 |---|---|---|---|---|
@@ -19,7 +19,7 @@ _Last test run: 2026-11-23 19:16 UTC_
 | Persistence (TA0003) | [Registry Persistence - LSA / Security Support Providers](detections/persistence/registry_lsa_security_providers) | [T1547.009](https://attack.mitre.org/techniques/T1547/009/), [T1112](https://attack.mitre.org/techniques/T1112/) | Empire | 🧪 In validation (1/1 passing) |
 | Persistence (TA0003) | [Registry Persistence - Scheduled Task Cache & Service ImagePath](detections/persistence/registry_service_taskcache_persistence) | [T1053.005](https://attack.mitre.org/techniques/T1053/005/), [T1543.003](https://attack.mitre.org/techniques/T1543/003/) | Covenant, Empire | 🧪 In validation (3/3 passing) |
 | Persistence (TA0003) | [WMI Fileless Consumer Execution - scrcons Substrate](detections/persistence/wmi_fileless_scrcons_consumer) | [T1546.003](https://attack.mitre.org/techniques/T1546/003/), [T1047](https://attack.mitre.org/techniques/T1047/) | Covenant | 🧪 In validation (1/1 passing) |
-| Credential Access (TA0006) | [LSASS Credential Theft - Master Composite (L3)](detections/credential_access/lsass_credential_theft) | [T1003.001](https://attack.mitre.org/techniques/T1003/001/), [T1003.002](https://attack.mitre.org/techniques/T1003/002/) | Native PowerShell | 🧪 In validation (1/1 passing) |
+| Credential Access (TA0006) | [LSASS Credential Theft - Master Composite (L3)](detections/credential_access/lsass_credential_theft) | [T1003.001](https://attack.mitre.org/techniques/T1003/001/), [T1003.002](https://attack.mitre.org/techniques/T1003/002/) | Empire, Native PowerShell | 🧪 In validation (2/2 passing) |
 | Credential Access (TA0006) | [NTDS / Registry Hive Credential Dumping](detections/credential_access/ntds_credential_dumping) | [T1003.003](https://attack.mitre.org/techniques/T1003/003/), [T1003.002](https://attack.mitre.org/techniques/T1003/002/) | Empire, Native cmd | 🧪 In validation (3/3 passing) |
 | Lateral Movement (TA0008) | [SMB + Service Execution - PsExec / Impacket Style](detections/lateral_movement/psexec_smb_service_execution) | [T1021.002](https://attack.mitre.org/techniques/T1021/002/), [T1569.002](https://attack.mitre.org/techniques/T1569/002/), [T1543.003](https://attack.mitre.org/techniques/T1543/003/) | Empire, Sysinternals PsExec | 🧪 In validation (3/3 passing) |
 | Lateral Movement (TA0008) | [WMI Remote Execution - WmiPrvSE Secondary Execution, Victim Side](detections/lateral_movement/wmiprvse_remote_execution) | [T1047](https://attack.mitre.org/techniques/T1047/), [T1059](https://attack.mitre.org/techniques/T1059/) | Empire | 🧪 In validation (2/2 passing) |
@@ -27,11 +27,10 @@ _Last test run: 2026-11-23 19:16 UTC_
 | Command and Control (TA0011) | [Ingress Tool Transfer - Native LOLBins](detections/command_and_control/ingress_tool_transfer_native) | [T1105](https://attack.mitre.org/techniques/T1105/) | Native cmd | 🧪 In validation (1/1 passing) |
 | Command and Control (TA0011) | [Ingress Tool Transfer - PowerShell Download Cradle](detections/command_and_control/powershell_download_cradle) | [T1105](https://attack.mitre.org/techniques/T1105/), [T1059.001](https://attack.mitre.org/techniques/T1059/001/) | - | ⚠️ Boundary documented (no passing implementation) |
 
-<details><summary><b>Known coverage boundaries</b> (6) - documented, tested on every build</summary>
+<details><summary><b>Known coverage boundaries</b> (5) - documented, tested on every build</summary>
 
 - **Ingress Tool Transfer - PowerShell Download Cradle** · `test.yml`: coverage boundary - Empire's stager hides the download inside -enc base64 and its lab C2 is 10.10.10.5 (RFC1918), so the minimum truth (cleartext download intent + external URL) is never visible; needs -enc decoding
 - **Ingress Tool Transfer - PowerShell Download Cradle** · `test_empire_sct_regsvr32.yml`: coverage boundary - same encoded stager launched via regsvr32/SCT; download intent hidden in -enc
-- **LSASS Credential Theft - Master Composite (L3)** · `test_benign.yml`: convergence counts events (count() > 1), not distinct signal types - routine LSASS handle access by svchost/services crosses the threshold
 - **NTDS / Registry Hive Credential Dumping** · `test_empire_ninjacopy.yml`: coverage boundary - Invoke-NinjaCopy reads the raw volume from in-memory PowerShell: no ntdsutil/vssadmin process and no ntds.dit file write to anchor on
 - **PowerShell Download Cradle / Stager - Intent-Gated** · `test.yml`: coverage boundary - encoded Empire stager: download intent hidden in -enc base64, lab C2 on RFC1918
 - **PowerShell Download Cradle / Stager - Intent-Gated** · `test_empire_uac_fodhelper.yml`: coverage boundary - fodhelper UAC bypass launches the same encoded stager; download intent hidden in -enc
@@ -42,7 +41,7 @@ _Last test run: 2026-11-23 19:16 UTC_
 <!-- COVERAGE:END -->
 
 <!-- PRECISION:START -->
-**Precision:** every rule also runs against every *other* recorded capture. Not run yet. [Precision matrix](docs/precision.md)
+**Precision:** every rule also runs against every *other* recorded capture (12 × 19). Last run: 164 silent · 0 genuine hits · 0 false positives · 1 to review · 40 no data. [Precision matrix](docs/precision.md)
 <!-- PRECISION:END -->
 
 ## Pipeline

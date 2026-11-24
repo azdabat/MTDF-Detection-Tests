@@ -27,7 +27,7 @@
    "techniqueID": "T1003.001",
    "score": 1,
    "color": "#ffb74d",
-   "comment": "LSASS Credential Theft - Master Composite (L3) - \ud83e\uddea In validation (1/1 passing)",
+   "comment": "LSASS Credential Theft - Master Composite (L3) - \ud83e\uddea In validation (2/2 passing)",
    "enabled": true,
    "showSubtechniques": false
   },
@@ -35,7 +35,7 @@
    "techniqueID": "T1003.002",
    "score": 1,
    "color": "#ffb74d",
-   "comment": "LSASS Credential Theft - Master Composite (L3) - \ud83e\uddea In validation (1/1 passing) | NTDS / Registry Hive Credential Dumping (Composite L2) - \ud83e\uddea In validation (3/3 passing)",
+   "comment": "LSASS Credential Theft - Master Composite (L3) - \ud83e\uddea In validation (2/2 passing) | NTDS / Registry Hive Credential Dumping (Composite L2) - \ud83e\uddea In validation (3/3 passing)",
    "enabled": true,
    "showSubtechniques": false
   },

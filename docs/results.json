@@ -1,10 +1,10 @@
 {
- "run_utc": "2026-11-23 19:16 UTC",
+ "run_utc": "2026-11-24 11:02 UTC",
  "engine": "Kustainer (Azure Data Explorer emulator)",
- "pass": 19,
+ "pass": 20,
  "fail": 0,
  "error": 0,
- "known": 6,
+ "known": 5,
  "blocking": 0,
  "tests": [
   {
@@ -96,14 +96,12 @@
    "name": "LSASS credential theft - benign control (Empire schtasks capture, no credential theft)",
    "tactic": "credential_access",
    "detection": "lsass_credential_theft",
-   "status": "known",
+   "status": "pass",
    "maturity": "experimental",
    "blocking": false,
-   "rows": 2,
-   "fails": [
-    "row_count 0 but got 2"
-   ],
-   "known_issue": "convergence counts events (count() > 1), not distinct signal types - routine LSASS handle access by svchost/services crosses the threshold",
+   "rows": 0,
+   "fails": [],
+   "known_issue": "",
    "technique": "T1003.001",
    "source": "OTRF empire_schtasks_creation_execution_elevated_user",
    "catches": "No alert on routine LSASS handle access by svchost/services",
