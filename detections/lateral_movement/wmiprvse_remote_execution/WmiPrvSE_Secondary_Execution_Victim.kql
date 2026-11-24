@@ -38,7 +38,7 @@ L2_Base
     NetUrls         = make_set_if(RemoteUrl, IsNear, 10),
     NetIPs          = make_set_if(RemoteIP, IsNear, 10),
     HasNet          = max(iff(IsNear, 1, 0))
-    by Timestamp, DeviceId, DeviceName, Account, Parent, Child, Cmd
+    by Timestamp, DeviceId, ReportId, DeviceName, Account, Parent, Child, Cmd   // [DEPLOY] ReportId kept
 
 | extend Severity = case(
     HasNet == 1 and HasPayloadHints == 1, "CRITICAL",
@@ -50,5 +50,6 @@ L2_Base
     Severity == "HIGH",     "HIGH: wmiprvse spawned process with payload hints. Check parent chain.",
     "MEDIUM: wmiprvse child process detected. Rare but potential admin activity."
 )
-| project Timestamp, Severity, DeviceName, Account, Parent, Child, Cmd, HasPayloadHints, HasNet, NetUrls, HunterDirectives
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
+| project Timestamp, DeviceId, ReportId, Severity, DeviceName, Account, Parent, Child, Cmd, HasPayloadHints, HasNet, NetUrls, HunterDirectives
 | order by Severity desc

@@ -279,8 +279,9 @@ DeviceProcessEvents
         "[NEXT] Validate change ticket/owner. If unapproved: collect task XML (if used), capture referenced binaries/scripts, and scope for follow-on execution."
     )
 
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
-    Timestamp,
+    Timestamp, DeviceId, ReportId,
     DeviceName,
     AccountName,
     Severity,

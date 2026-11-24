@@ -55,7 +55,7 @@ DeviceProcessEvents
     TargetsSuspExt   = Cmd has_any (SuspTargetExts),
     LongEncoded      = iff(Cmd matches regex @"(?i)\s-enc(odedcommand)?\s+[A-Za-z0-9+/=]{400,}", 1, 0)
 | where HasExternalUrl and HasIngressIntent
-| project Timestamp, DeviceId, DeviceName, AccountName,
+| project Timestamp, DeviceId, ReportId, DeviceName, AccountName,   // [DEPLOY] ReportId carried
           FileName, ProcessId, InitiatingProcessId,
           Parent, Cmd,
           HasExecIntent, BadParent, TargetsWritable, TargetsSuspExt, LongEncoded;
@@ -160,8 +160,9 @@ Base
         "[CASCADE] No near child execution observed."),
     "[NEXT] Extract URL(s), decode if -enc/base64, validate dropped artifacts, review child lineage, scope command pattern across fleet."
 )
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
-    Timestamp, DeviceName, AccountName, FileName,
+    Timestamp, DeviceId, ReportId, DeviceName, AccountName, FileName,
     RiskScore, Severity, Parent, Cmd,
     FileNear, DroppedFiles,
     ChildNear, ChildProcs,

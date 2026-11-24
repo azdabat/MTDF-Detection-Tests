@@ -86,7 +86,8 @@ DeviceProcessEvents
     ServiceProcesses = make_set(FileName, 10),
     ServiceCmds      = make_set(SvcCmd, 10),
     Accounts         = make_set(AccountName, 10),
-    DeviceName       = any(DeviceName)
+    DeviceName       = any(DeviceName),
+    arg_min(Timestamp, ReportId)          // [DEPLOY] the first service child's event
   by DeviceId, BinTime;
 
 // -----------------------------------------------------------------------
@@ -137,7 +138,9 @@ ServiceSpawn
     "and check authentication/logon events around the same window."
 )
 
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
+    Timestamp        = SvcTime, DeviceId, ReportId,
     Time             = SvcTime,
     Severity,
     RiskScore,

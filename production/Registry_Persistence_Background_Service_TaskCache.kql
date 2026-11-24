@@ -137,8 +137,9 @@ Enriched
     RiskLevel == "HIGH",
         "HIGH: Background persistence registry artifact. Pivot to writer ancestry, recent file drops, hunt fleet for same RegistryValueData / WriterSHA.",
         "MEDIUM: Background persistence signal. Validate if approved updater/agent; if not, escalate and scope.")
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
-    Timestamp, DeviceName,
+    Timestamp, DeviceId, ReportId, DeviceName,
     AccountName = WriterUser,
     RegistryKey, RegistryValueName, RegistryValueData, DecodedPayload,
     PersistenceClass, WriterProcess = WriterFile, WriterCommandLine = WriterCL,

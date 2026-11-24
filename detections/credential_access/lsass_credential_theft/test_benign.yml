@@ -6,10 +6,10 @@ source: OTRF empire_schtasks_creation_execution_elevated_user
 source_url: https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/persistence/host/empire_schtasks_creation_execution_elevated_user.zip
 catches: "No alert on routine LSASS handle access by svchost/services"
 notes: >
-  Precision test. This capture contains no credential theft. Expected to FAIL
-  until convergence counts distinct signal types (dcount(Technique) > 1)
-  instead of raw events (count() > 1).
+  Precision test. This capture contains no credential theft: 144 routine LSASS handle
+  accesses on two devices, all one signal type. It failed (2 rows) while convergence
+  counted events (count() > 1); FIX-4 counts distinct signal types (dcount(Technique) > 1),
+  so one signal type alone stays at 50, under the threshold of 60.
 maturity: experimental
 expect:
   row_count: 0
-known_issue: "convergence counts events (count() > 1), not distinct signal types - routine LSASS handle access by svchost/services crosses the threshold"

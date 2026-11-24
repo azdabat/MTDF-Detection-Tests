@@ -46,5 +46,6 @@ DeviceProcessEvents
     "CONTEXT: External URL + web request intent (ExecHints=", tostring(HasScriptExec), ", BadParent=", tostring(BadParent), ") | ",
     "PIVOT: extract URL(s), inspect decoded content if -enc/base64, check child processes, file writes in Temp/Public, and scope same cmdline hash across estate."
 )
-| project Timestamp, DeviceName, AccountName, FileName, RiskScore, Severity, Hunter_Directive, ProcessCommandLine, InitiatingProcessFileName
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
+| project Timestamp, DeviceId, ReportId, DeviceName, AccountName, FileName, RiskScore, Severity, Hunter_Directive, ProcessCommandLine, InitiatingProcessFileName
 | order by RiskScore desc, Timestamp desc

@@ -38,7 +38,7 @@ DeviceImageLoadEvents
     DllName  = tostring(FileName),
     DllPath  = tostring(FolderPath),
     PID      = tolong(InitiatingProcessId)
-| project BaseTime, DeviceId, DeviceName, Account, DllName, DllPath, PID;
+| project BaseTime, DeviceId, ReportId, DeviceName, Account, DllName, DllPath, PID;   // [DEPLOY] ReportId carried
 
 // ----------------------------
 // R1 (Optional): Network events
@@ -119,7 +119,8 @@ union PID_Path, Fallback_Path
     AnyRareOnDevice = max(IsRareOnDevice),
     AnyNonSystemDll = max(NonSystemDllPath),
     Evidence = make_set(strcat("scrcons loaded ", DllName, " from ", DllPath), 10),
-    MaxTotalScore = max(TotalScore)
+    MaxTotalScore = max(TotalScore),
+    arg_max(BaseTime, ReportId)                 // [DEPLOY] the latest substrate event
   by DeviceId, DeviceName, Account
 | extend Severity = case(
     HasNet == 1 and AnyNonSystemDll == 1, "CRITICAL",
@@ -139,10 +140,12 @@ union PID_Path, Fallback_Path
         "MEDIUM: substrate is rare on this device. Baseline host role + management tooling; promote if repeated or paired with network.",
     "MEDIUM: substrate detected. Confirm legitimate WMI consumer usage and monitor for reinforcement (network / anomalous path)."
 )
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
+    Timestamp = LastSeen, DeviceId, ReportId,
     FirstSeen, LastSeen,
     Severity, MaxTotalScore,
-    DeviceName, DeviceId, Account,
+    DeviceName, Account,
     HasNet, NetUrls, NetIPs,
     AnyRareOnDevice, AnyNonSystemDll,
     Evidence,

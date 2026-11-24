@@ -53,7 +53,7 @@ DeviceProcessEvents
     TargetsWritable = Cmd has_any (WritablePathHints),
     TargetsSuspExt  = Cmd has_any (SuspTargetExts)
 | where HasExternalRef or HasIngressFlags
-| project Timestamp, DeviceId, DeviceName, AccountName,
+| project Timestamp, DeviceId, ReportId, DeviceName, AccountName,   // [DEPLOY] ReportId carried
           FileName, ProcessId, InitiatingProcessId,
           Parent, Cmd,
           HasExternalRef, HasIngressFlags, BadParent, TargetsWritable, TargetsSuspExt;
@@ -161,8 +161,9 @@ Base
         "[CASCADE] No sibling execution observed."),
     "[NEXT] Validate URL/host, verify dropped file signer/hash, check parent lineage, scope same Cmd pattern across fleet."
 )
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
 | project
-    Timestamp, DeviceName, AccountName, FileName,
+    Timestamp, DeviceId, ReportId, DeviceName, AccountName, FileName,
     RiskScore, Severity, Parent, Cmd,
     FileNear, DroppedFiles,
     ChildNear, ChildProcs,

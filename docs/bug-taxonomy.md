@@ -122,7 +122,7 @@ SignalCount = count()                          SignalTypes = dcount(Technique)
 | extend Boost = iff(SignalCount > 1, 15, 0)   | extend Boost = iff(SignalTypes > 1, 15, 0)
 ```
 
-**Found by:** the benign control for `COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER`, a capture with no credential theft in it, which the rule scored 65. Tracked as a `known_issue` until fixed: `detections/credential_access/lsass_credential_theft/test_benign.yml`.
+**Found by:** the benign control for `COMPOSITE_L3_LSASS_CREDENTIAL_THEFT_MASTER`, a capture with no credential theft in it, which the rule scored 65. Fixed in FIX-4 (Nov 2026): one signal type now stays at 50, under the threshold of 60, while the real comsvcs dump still scores 110. The benign control `detections/credential_access/lsass_credential_theft/test_benign.yml` now guards the fix.
 
 **Rule of thumb:** converge on distinct kinds of evidence, never on volume.
 

@@ -47,5 +47,6 @@ DeviceProcessEvents
     "CONTEXT: External transfer intent (HasNet=", tostring(HasNet), ", Flags=", tostring(HasIngressFlags), ") | ",
     "PIVOT: confirm destination URL/IP, identify written file (Temp/Public/Downloads), check immediate child execution, and scope same cmdline across estate."
 )
-| project Timestamp, DeviceName, AccountName, FileName, RiskScore, Severity, Hunter_Directive, ProcessCommandLine, InitiatingProcessFileName
+// [DEPLOY] Timestamp, DeviceId and ReportId in the output: required to deploy as a Defender custom detection.
+| project Timestamp, DeviceId, ReportId, DeviceName, AccountName, FileName, RiskScore, Severity, Hunter_Directive, ProcessCommandLine, InitiatingProcessFileName
 | order by RiskScore desc, Timestamp desc
